@@ -1,0 +1,170 @@
+---
+import '../styles/global.css';
+---
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr. Omar Mathlouthi — Dentiste Esthétique à Sousse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #ffffff; font-family: 'Inter', sans-serif; color: #0B1F3A; }
+      nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 20px 40px;
+        background: linear-gradient(to bottom, rgba(11,31,58,0.9), transparent);
+      }
+      .nav-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.2rem; letter-spacing: 0.05em; }
+      .nav-btn {
+        font-size: 0.85rem; font-weight: 500; padding: 10px 24px;
+        border-radius: 999px; border: 1px solid #C9A84C; color: #C9A84C;
+        text-decoration: none; transition: all 0.3s;
+      }
+      .nav-btn:hover { background: #C9A84C; color: #0B1F3A; }
+      .hero {
+        min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        position: relative; overflow: hidden;
+        background: linear-gradient(135deg, #0B1F3A 0%, #1a3a5c 50%, #0B1F3A 100%);
+      }
+      .hero-gold-line {
+        position: absolute; left: 0; top: 0; width: 3px; height: 100%;
+        background: linear-gradient(to bottom, transparent, #C9A84C, transparent);
+      }
+      .hero-content { position: relative; z-index: 10; text-align: center; padding: 0 24px; max-width: 900px; margin: 0 auto; }
+      .hero-eyebrow { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A84C; margin-bottom: 24px; }
+      .hero-title { font-family: 'Playfair Display', serif; color: white; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; line-height: 1.15; margin-bottom: 24px; }
+      .hero-title em { color: #C9A84C; font-style: italic; }
+      .hero-subtitle { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300; color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+      .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+      .btn-primary {
+        padding: 16px 36px; border-radius: 999px; font-weight: 600; font-size: 0.95rem;
+        background: #C9A84C; color: #0B1F3A; text-decoration: none;
+        transition: all 0.3s; display: inline-block;
+      }
+      .btn-primary:hover { opacity: 0.9; transform: scale(1.03); }
+      .btn-secondary {
+        padding: 16px 36px; border-radius: 999px; font-weight: 500; font-size: 0.95rem;
+        border: 1px solid rgba(255,255,255,0.4); color: white; text-decoration: none;
+        transition: all 0.3s; display: inline-block;
+      }
+      .btn-secondary:hover { background: white; color: #0B1F3A; }
+      .scroll-indicator {
+        position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+        display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10;
+      }
+      .scroll-indicator span { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+      .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(201,168,76,0.8), transparent); }
+    </style>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav>
+      <span class="nav-logo">Dr. Omar Mathlouthi</span>
+      <a href="#booking" class="nav-btn">Prendre RDV</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-gold-line"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Dentisterie Esthétique · Sousse, Tunisie</p>
+        <h1 class="hero-title">
+          Votre plus beau<br/>
+          <em>sourire</em> commence ici
+        </h1>
+        <p class="hero-subtitle">
+          Spécialiste en design du sourire, facettes et blanchiment. Une approche personnalisée pour un résultat naturel et élégant.
+        </p>
+        <div class="hero-buttons">
+          <a href="#booking" class="btn-primary">Réserver une consultation</a>
+          <a href="#services" class="btn-secondary">Découvrir les soins</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>Découvrir</span>
+        <div class="scroll-line"></div>
+      </div>
+</section>
+
+    <!-- ABOUT -->
+    <section id="about" style="background:#ffffff; padding: 100px 24px;">
+      <div style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; gap:60px; align-items:center;">
+        <div style="flex:1; min-width:280px;">
+          <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;">À propos</p>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0B1F3A; line-height:1.2; margin-bottom:24px;">Une vision moderne<br/>de la dentisterie</h2>
+          <p style="font-size:1rem; line-height:1.8; color:#4a5568; margin-bottom:16px;">Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.</p>
+          <p style="font-size:1rem; line-height:1.8; color:#4a5568; margin-bottom:32px;">Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.</p>
+          <a href="#booking" style="display:inline-block; padding:14px 32px; border-radius:999px; background:#0B1F3A; color:white; text-decoration:none; font-weight:500; font-size:0.9rem; transition:all 0.3s;">Prendre rendez-vous</a>
+        </div>
+        <div style="flex:1; min-width:280px; display:flex; flex-wrap:wrap; gap:20px;">
+          <div style="flex:1; min-width:120px; background:#f8f7f4; border-radius:16px; padding:28px 20px; text-align:center; border-bottom:3px solid #C9A84C;">
+            <p style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:#0B1F3A;">10+</p>
+            <p style="font-size:0.85rem; color:#6b7280; margin-top:6px;">Années d'expérience</p>
+          </div>
+          <div style="flex:1; min-width:120px; background:#f8f7f4; border-radius:16px; padding:28px 20px; text-align:center; border-bottom:3px solid #C9A84C;">
+            <p style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:#0B1F3A;">500+</p>
+            <p style="font-size:0.85rem; color:#6b7280; margin-top:6px;">Sourires transformés</p>
+          </div>
+          <div style="flex:1; min-width:120px; background:#f8f7f4; border-radius:16px; padding:28px 20px; text-align:center; border-bottom:3px solid #C9A84C;">
+            <p style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:#0B1F3A;">100%</p>
+            <p style="font-size:0.85rem; color:#6b7280; margin-top:6px;">Satisfaction patient</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" style="background:#f8f7f4; padding:100px 24px;">
+      <div style="max-width:1100px; margin:0 auto;">
+        <div style="text-align:center; margin-bottom:60px;">
+          <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;">Nos soins</p>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0B1F3A;">Des traitements d'excellence</h2>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:24px;">
+
+          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C; transition:all 0.3s;">
+            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">✨</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Design du Sourire</h3>
+            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Transformation complète de votre sourire grâce à une planification digitale personnalisée et des techniques esthétiques avancées.</p>
+          </div>
+
+          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
+            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">🦷</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Facettes en Porcelaine</h3>
+            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l'alignement de vos dents avec un résultat naturel.</p>
+          </div>
+
+          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
+            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">⚪</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Blanchiment Dentaire</h3>
+            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Techniques professionnelles de blanchiment pour un sourire éclatant, en cabinet ou à domicile, avec des résultats durables.</p>
+          </div>
+
+          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
+            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">😁</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Aligneurs Invisibles</h3>
+            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Redressez vos dents discrètement avec des gouttières transparentes et amovibles, sans compromis sur votre apparence.</p>
+          </div>
+
+          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
+            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">🔩</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Implants Dentaires</h3>
+            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Remplacez vos dents manquantes par des implants en titane offrant la solidité et l'apparence d'une dent naturelle.</p>
+          </div>
+
+          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
+            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">👑</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Couronnes Céramiques</h3>
+            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Restaurez et protégez vos dents abîmées avec des couronnes en céramique entièrement personnalisées pour un rendu parfait.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </body>
+</html>
