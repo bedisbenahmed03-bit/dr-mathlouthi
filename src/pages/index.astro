@@ -11,64 +11,166 @@ import '../styles/global.css';
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { background: #ffffff; font-family: 'Inter', sans-serif; color: #0B1F3A; }
+
+      /* NAV */
       nav {
         position: fixed; top: 0; left: 0; right: 0; z-index: 50;
         display: flex; align-items: center; justify-content: space-between;
         padding: 20px 40px;
-        background: linear-gradient(to bottom, rgba(11,31,58,0.9), transparent);
+        background: linear-gradient(to bottom, rgba(11,31,58,0.95), transparent);
       }
-      .nav-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.2rem; letter-spacing: 0.05em; }
+      .nav-logo-wrap { display: flex; flex-direction: column; }
+      .nav-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.1rem; letter-spacing: 0.05em; line-height: 1.2; }
+      .nav-slogan { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #C9A84C; margin-top: 2px; }
       .nav-btn {
         font-size: 0.85rem; font-weight: 500; padding: 10px 24px;
         border-radius: 999px; border: 1px solid #C9A84C; color: #C9A84C;
         text-decoration: none; transition: all 0.3s;
       }
       .nav-btn:hover { background: #C9A84C; color: #0B1F3A; }
+
+      /* HERO */
       .hero {
         min-height: 100vh; display: flex; align-items: center; justify-content: center;
         position: relative; overflow: hidden;
-        background: linear-gradient(135deg, #0B1F3A 0%, #1a3a5c 50%, #0B1F3A 100%);
+      }
+      .hero-bg {
+        position: absolute; inset: 0; z-index: 0;
+        background-image: url('/images/cabinet2.jpg');
+        background-size: cover; background-position: center;
+      }
+      .hero-overlay {
+        position: absolute; inset: 0; z-index: 1;
+        background: linear-gradient(135deg, rgba(11,31,58,0.92) 0%, rgba(11,31,58,0.75) 100%);
       }
       .hero-gold-line {
-        position: absolute; left: 0; top: 0; width: 3px; height: 100%;
+        position: absolute; left: 0; top: 0; width: 3px; height: 100%; z-index: 2;
         background: linear-gradient(to bottom, transparent, #C9A84C, transparent);
       }
-      .hero-content { position: relative; z-index: 10; text-align: center; padding: 0 24px; max-width: 900px; margin: 0 auto; }
+      .hero-content { position: relative; z-index: 3; text-align: center; padding: 0 24px; max-width: 900px; margin: 0 auto; }
       .hero-eyebrow { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A84C; margin-bottom: 24px; }
       .hero-title { font-family: 'Playfair Display', serif; color: white; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; line-height: 1.15; margin-bottom: 24px; }
       .hero-title em { color: #C9A84C; font-style: italic; }
       .hero-subtitle { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300; color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
       .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-      .btn-primary {
-        padding: 16px 36px; border-radius: 999px; font-weight: 600; font-size: 0.95rem;
-        background: #C9A84C; color: #0B1F3A; text-decoration: none;
-        transition: all 0.3s; display: inline-block;
-      }
+      .btn-primary { padding: 16px 36px; border-radius: 999px; font-weight: 600; font-size: 0.95rem; background: #C9A84C; color: #0B1F3A; text-decoration: none; transition: all 0.3s; display: inline-block; }
       .btn-primary:hover { opacity: 0.9; transform: scale(1.03); }
-      .btn-secondary {
-        padding: 16px 36px; border-radius: 999px; font-weight: 500; font-size: 0.95rem;
-        border: 1px solid rgba(255,255,255,0.4); color: white; text-decoration: none;
-        transition: all 0.3s; display: inline-block;
-      }
+      .btn-secondary { padding: 16px 36px; border-radius: 999px; font-weight: 500; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.4); color: white; text-decoration: none; transition: all 0.3s; display: inline-block; }
       .btn-secondary:hover { background: white; color: #0B1F3A; }
-      .scroll-indicator {
-        position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-        display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10;
-      }
+      .scroll-indicator { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10; }
       .scroll-indicator span { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
       .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(201,168,76,0.8), transparent); }
+
+      /* ABOUT */
+      .about { background: #ffffff; padding: 100px 24px; }
+      .about-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 60px; align-items: center; }
+      .about-text { flex: 1; min-width: 280px; }
+      .section-eyebrow { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A84C; margin-bottom: 16px; }
+      .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: #0B1F3A; line-height: 1.2; margin-bottom: 24px; }
+      .about-text p { font-size: 1rem; line-height: 1.8; color: #4a5568; margin-bottom: 16px; }
+      .about-photos { flex: 1; min-width: 280px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .about-photo-main { grid-column: 1 / -1; height: 280px; border-radius: 16px; overflow: hidden; }
+      .about-photo-main img { width: 100%; height: 100%; object-fit: cover; }
+      .about-photo-small { height: 180px; border-radius: 12px; overflow: hidden; }
+      .about-photo-small img { width: 100%; height: 100%; object-fit: cover; }
+      .stats { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+      .stat { flex: 1; min-width: 100px; background: #f8f7f4; border-radius: 16px; padding: 24px 16px; text-align: center; border-bottom: 3px solid #C9A84C; }
+      .stat-number { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: #0B1F3A; }
+      .stat-label { font-size: 0.8rem; color: #6b7280; margin-top: 4px; }
+
+      /* SERVICES */
+      .services { background: #f8f7f4; padding: 100px 24px; }
+      .services-inner { max-width: 1100px; margin: 0 auto; }
+      .section-header { text-align: center; margin-bottom: 60px; }
+      .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+      .service-card { background: white; border-radius: 16px; padding: 36px 28px; border-top: 3px solid #C9A84C; transition: transform 0.3s, box-shadow 0.3s; }
+      .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(11,31,58,0.08); }
+      .service-icon { width: 52px; height: 52px; background: #fff8ec; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6rem; }
+      .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: #0B1F3A; margin-bottom: 12px; }
+      .service-card p { font-size: 0.9rem; line-height: 1.7; color: #6b7280; }
+
+      /* BEFORE AFTER */
+      .gallery { background: #0B1F3A; padding: 100px 24px; }
+      .gallery-inner { max-width: 1100px; margin: 0 auto; }
+      .gallery .section-eyebrow { color: #C9A84C; }
+      .gallery .section-title { color: white; }
+      .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
+      .gallery-card { border-radius: 16px; overflow: hidden; position: relative; background: #1a3a5c; }
+      .gallery-card img { width: 100%; height: 380px; object-fit: cover; display: block; }
+      .gallery-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(11,31,58,0.95), transparent); }
+      .gallery-label span { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #C9A84C; }
+
+      /* WHY US */
+      .why { background: #f8f7f4; padding: 100px 24px; }
+      .why-inner { max-width: 1100px; margin: 0 auto; }
+      .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 48px; }
+      .why-card { background: white; border-radius: 16px; padding: 32px 24px; text-align: center; }
+      .why-icon { font-size: 2rem; margin-bottom: 16px; }
+      .why-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: #0B1F3A; margin-bottom: 10px; }
+      .why-card p { font-size: 0.85rem; line-height: 1.7; color: #6b7280; }
+
+      /* TESTIMONIALS */
+      .testimonials { background: #ffffff; padding: 100px 24px; }
+      .testimonials-inner { max-width: 1100px; margin: 0 auto; }
+      .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
+      .testimonial-card { background: #f8f7f4; border-radius: 16px; padding: 32px 28px; border-left: 3px solid #C9A84C; }
+      .stars { color: #C9A84C; font-size: 1rem; margin-bottom: 16px; }
+      .testimonial-card p { font-size: 0.95rem; line-height: 1.8; color: #4a5568; margin-bottom: 20px; font-style: italic; }
+      .testimonial-author { font-weight: 600; font-size: 0.9rem; color: #0B1F3A; }
+
+      /* BOOKING */
+      .booking { background: #0B1F3A; padding: 100px 24px; }
+      .booking-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+      .booking .section-eyebrow { color: #C9A84C; }
+      .booking .section-title { color: white; margin-bottom: 16px; }
+      .booking-subtitle { color: rgba(255,255,255,0.7); margin-bottom: 48px; font-size: 1rem; line-height: 1.7; }
+      .booking-options { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+      .booking-option { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,168,76,0.3); border-radius: 12px; padding: 20px 28px; text-decoration: none; color: white; transition: all 0.3s; }
+      .booking-option:hover { background: rgba(201,168,76,0.15); border-color: #C9A84C; }
+      .booking-option-icon { font-size: 1.5rem; }
+      .booking-option-text { text-align: left; }
+      .booking-option-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #C9A84C; }
+      .booking-option-value { font-size: 0.95rem; font-weight: 500; margin-top: 2px; }
+
+      /* CONTACT / FOOTER */
+      footer { background: #060f1e; padding: 80px 24px 40px; }
+      .footer-inner { max-width: 1100px; margin: 0 auto; }
+      .footer-top { display: flex; flex-wrap: wrap; gap: 48px; margin-bottom: 60px; }
+      .footer-brand { flex: 2; min-width: 220px; }
+      .footer-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.3rem; margin-bottom: 6px; }
+      .footer-slogan { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: #C9A84C; margin-bottom: 16px; }
+      .footer-brand p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 300px; }
+      .footer-col { flex: 1; min-width: 160px; }
+      .footer-col h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #C9A84C; margin-bottom: 20px; }
+      .footer-col a, .footer-col p { display: block; font-size: 0.9rem; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 10px; line-height: 1.6; transition: color 0.2s; }
+      .footer-col a:hover { color: #C9A84C; }
+      .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+      .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+      /* MOBILE */
+      @media (max-width: 768px) {
+        nav { padding: 16px 20px; }
+        .about-inner, .footer-top { flex-direction: column; }
+        .about-photos { grid-template-columns: 1fr; }
+        .about-photo-main { height: 220px; }
+      }
     </style>
   </head>
   <body>
 
     <!-- NAVBAR -->
     <nav>
-      <span class="nav-logo">Dr. Omar Mathlouthi</span>
+      <div class="nav-logo-wrap">
+        <span class="nav-logo">Dr. Omar Mathlouthi</span>
+        <span class="nav-slogan">Wear your best smile</span>
+      </div>
       <a href="#booking" class="nav-btn">Prendre RDV</a>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
       <div class="hero-gold-line"></div>
       <div class="hero-content">
         <p class="hero-eyebrow">Dentisterie Esthétique · Sousse, Tunisie</p>
@@ -88,83 +190,228 @@ import '../styles/global.css';
         <span>Découvrir</span>
         <div class="scroll-line"></div>
       </div>
-</section>
+    </section>
 
     <!-- ABOUT -->
-    <section id="about" style="background:#ffffff; padding: 100px 24px;">
-      <div style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; gap:60px; align-items:center;">
-        <div style="flex:1; min-width:280px;">
-          <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;">À propos</p>
-          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0B1F3A; line-height:1.2; margin-bottom:24px;">Une vision moderne<br/>de la dentisterie</h2>
-          <p style="font-size:1rem; line-height:1.8; color:#4a5568; margin-bottom:16px;">Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.</p>
-          <p style="font-size:1rem; line-height:1.8; color:#4a5568; margin-bottom:32px;">Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.</p>
-          <a href="#booking" style="display:inline-block; padding:14px 32px; border-radius:999px; background:#0B1F3A; color:white; text-decoration:none; font-weight:500; font-size:0.9rem; transition:all 0.3s;">Prendre rendez-vous</a>
+    <section class="about" id="about">
+      <div class="about-inner">
+        <div class="about-text">
+          <p class="section-eyebrow">À propos</p>
+          <h2 class="section-title">Une vision moderne<br/>de la dentisterie</h2>
+          <p>Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.</p>
+          <p>Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">Années d'expérience</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Sourires transformés</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Satisfaction patient</div>
+            </div>
+          </div>
         </div>
-        <div style="flex:1; min-width:280px; display:flex; flex-wrap:wrap; gap:20px;">
-          <div style="flex:1; min-width:120px; background:#f8f7f4; border-radius:16px; padding:28px 20px; text-align:center; border-bottom:3px solid #C9A84C;">
-            <p style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:#0B1F3A;">10+</p>
-            <p style="font-size:0.85rem; color:#6b7280; margin-top:6px;">Années d'expérience</p>
+        <div class="about-photos">
+          <div class="about-photo-main">
+            <img src="/images/doctor.jpg" alt="Dr. Omar Mathlouthi" />
           </div>
-          <div style="flex:1; min-width:120px; background:#f8f7f4; border-radius:16px; padding:28px 20px; text-align:center; border-bottom:3px solid #C9A84C;">
-            <p style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:#0B1F3A;">500+</p>
-            <p style="font-size:0.85rem; color:#6b7280; margin-top:6px;">Sourires transformés</p>
+          <div class="about-photo-small">
+            <img src="/images/cabinet1.jpg" alt="Cabinet dentaire" />
           </div>
-          <div style="flex:1; min-width:120px; background:#f8f7f4; border-radius:16px; padding:28px 20px; text-align:center; border-bottom:3px solid #C9A84C;">
-            <p style="font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; color:#0B1F3A;">100%</p>
-            <p style="font-size:0.85rem; color:#6b7280; margin-top:6px;">Satisfaction patient</p>
+          <div class="about-photo-small">
+            <img src="/images/cabinet3.jpg" alt="Équipement moderne" />
           </div>
         </div>
       </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="services" style="background:#f8f7f4; padding:100px 24px;">
-      <div style="max-width:1100px; margin:0 auto;">
-        <div style="text-align:center; margin-bottom:60px;">
-          <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;">Nos soins</p>
-          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0B1F3A;">Des traitements d'excellence</h2>
+    <section class="services" id="services">
+      <div class="services-inner">
+        <div class="section-header">
+          <p class="section-eyebrow">Nos soins</p>
+          <h2 class="section-title">Des traitements d'excellence</h2>
         </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:24px;">
-
-          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C; transition:all 0.3s;">
-            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">✨</div>
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Design du Sourire</h3>
-            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Transformation complète de votre sourire grâce à une planification digitale personnalisée et des techniques esthétiques avancées.</p>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">✨</div>
+            <h3>Design du Sourire</h3>
+            <p>Transformation complète de votre sourire grâce à une planification digitale personnalisée et des techniques esthétiques avancées.</p>
           </div>
-
-          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
-            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">🦷</div>
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Facettes en Porcelaine</h3>
-            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l'alignement de vos dents avec un résultat naturel.</p>
+          <div class="service-card">
+            <div class="service-icon">🦷</div>
+            <h3>Facettes en Porcelaine</h3>
+            <p>Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l'alignement de vos dents avec un résultat naturel.</p>
           </div>
-
-          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
-            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">⚪</div>
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Blanchiment Dentaire</h3>
-            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Techniques professionnelles de blanchiment pour un sourire éclatant, en cabinet ou à domicile, avec des résultats durables.</p>
+          <div class="service-card">
+            <div class="service-icon">⚪</div>
+            <h3>Blanchiment Dentaire</h3>
+            <p>Techniques professionnelles de blanchiment pour un sourire éclatant, en cabinet ou à domicile, avec des résultats durables.</p>
           </div>
-
-          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
-            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">😁</div>
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Aligneurs Invisibles</h3>
-            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Redressez vos dents discrètement avec des gouttières transparentes et amovibles, sans compromis sur votre apparence.</p>
+          <div class="service-card">
+            <div class="service-icon">😁</div>
+            <h3>Aligneurs Invisibles</h3>
+            <p>Redressez vos dents discrètement avec des gouttières transparentes et amovibles, sans compromis sur votre apparence.</p>
           </div>
-
-          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
-            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">🔩</div>
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Implants Dentaires</h3>
-            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Remplacez vos dents manquantes par des implants en titane offrant la solidité et l'apparence d'une dent naturelle.</p>
+          <div class="service-card">
+            <div class="service-icon">🔩</div>
+            <h3>Implants Dentaires</h3>
+            <p>Remplacez vos dents manquantes par des implants en titane offrant la solidité et l'apparence d'une dent naturelle.</p>
           </div>
-
-          <div style="background:white; border-radius:16px; padding:36px 28px; border-top:3px solid #C9A84C;">
-            <div style="width:52px; height:52px; background:#fff8ec; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:1.6rem;">👑</div>
-            <h3 style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:#0B1F3A; margin-bottom:12px;">Couronnes Céramiques</h3>
-            <p style="font-size:0.9rem; line-height:1.7; color:#6b7280;">Restaurez et protégez vos dents abîmées avec des couronnes en céramique entièrement personnalisées pour un rendu parfait.</p>
+          <div class="service-card">
+            <div class="service-icon">👑</div>
+            <h3>Couronnes Zircone</h3>
+            <p>Restaurez et protégez vos dents abîmées avec des couronnes en zircone entièrement personnalisées pour un rendu parfait.</p>
           </div>
-
         </div>
       </div>
     </section>
+
+    <!-- BEFORE & AFTER -->
+    <section class="gallery" id="gallery">
+      <div class="gallery-inner">
+        <div class="section-header">
+          <p class="section-eyebrow">Résultats réels</p>
+          <h2 class="section-title" style="color:white;">Avant & Après</h2>
+          <p style="color:rgba(255,255,255,0.6); margin-top:16px; font-size:0.95rem;">Des transformations réelles réalisées au cabinet du Dr. Mathlouthi</p>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-card">
+           <img src="/images/work1.jpg" alt="Transformation Bridge Zircone" />
+<img src="/images/work2.jpg" alt="Couronnes Zircone" />
+<img src="/images/work3.jpg" alt="Blanchiment dentaire" />
+<img src="/images/work4.jpg" alt="Sculpture résine composite" />
+<img src="/images/work5.jpg" alt="Résultat esthétique" />
+            <div class="gallery-label"><span>Résultat Esthétique Final</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE HIM -->
+    <section class="why" id="why">
+      <div class="why-inner">
+        <div class="section-header">
+          <p class="section-eyebrow">Pourquoi nous choisir</p>
+          <h2 class="section-title">L'excellence à votre service</h2>
+        </div>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon">🏆</div>
+            <h3>Expertise Reconnue</h3>
+            <p>Plus de 10 ans de spécialisation en dentisterie esthétique avec des formations continues aux dernières techniques.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🔬</div>
+            <h3>Technologie de Pointe</h3>
+            <p>Cabinet équipé des équipements les plus modernes pour des diagnostics précis et des soins confortables.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">💎</div>
+            <h3>Résultats Naturels</h3>
+            <p>Une approche artistique et médicale pour des sourires qui paraissent naturels et qui reflètent votre personnalité.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">🤝</div>
+            <h3>Suivi Personnalisé</h3>
+            <p>Chaque patient bénéficie d'un plan de traitement sur mesure et d'un accompagnement tout au long de son parcours.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+      <div class="testimonials-inner">
+        <div class="section-header">
+          <p class="section-eyebrow">Témoignages</p>
+          <h2 class="section-title">Ce que disent nos patients</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Le Dr. Mathlouthi a complètement transformé mon sourire. Le résultat est naturel et magnifique. Je recommande vivement !"</p>
+            <div class="testimonial-author">Sonia B. — Sousse</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Professionnel, attentionné et très compétent. Mon blanchiment dentaire a dépassé toutes mes attentes. Merci Docteur !"</p>
+            <div class="testimonial-author">Ahmed K. — Tunis</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Cabinet moderne, équipe accueillante. Mes facettes en zircone sont parfaites. Je souris enfin avec confiance !"</p>
+            <div class="testimonial-author">Mariem T. — Monastir</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section class="booking" id="booking">
+      <div class="booking-inner">
+        <p class="section-eyebrow">Rendez-vous</p>
+        <h2 class="section-title">Réservez votre consultation</h2>
+        <p class="booking-subtitle">Contactez-nous par téléphone ou WhatsApp pour prendre rendez-vous. Nous répondons rapidement.</p>
+        <div class="booking-options">
+          <a href="tel:+21698699295" class="booking-option">
+            <span class="booking-option-icon">📞</span>
+            <div class="booking-option-text">
+              <div class="booking-option-label">Appeler</div>
+              <div class="booking-option-value">98 699 295</div>
+            </div>
+          </a>
+          <a href="https://wa.me/21698699295" target="_blank" class="booking-option">
+            <span class="booking-option-icon">💬</span>
+            <div class="booking-option-text">
+              <div class="booking-option-label">WhatsApp</div>
+              <div class="booking-option-value">Écrire un message</div>
+            </div>
+          </a>
+          <a href="mailto:dr.omarmathlouthi@gmail.com" class="booking-option">
+            <span class="booking-option-icon">✉️</span>
+            <div class="booking-option-text">
+              <div class="booking-option-label">Email</div>
+              <div class="booking-option-value">dr.omarmathlouthi@gmail.com</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-logo">Dr. Omar Mathlouthi</div>
+            <div class="footer-slogan">Wear your best smile</div>
+            <p>Spécialiste en dentisterie esthétique à Sousse, Tunisie. Design du sourire, facettes, blanchiment et implants.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Navigation</h4>
+            <a href="#about">À propos</a>
+            <a href="#services">Nos soins</a>
+            <a href="#gallery">Avant & Après</a>
+            <a href="#booking">Rendez-vous</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>📍 En face de clinique el Yosr Internationale, Immeuble le 103, Av. IBN EL Jazzar, Sousse 4002</p>
+            <a href="tel:+21698699295">📞 98 699 295</a>
+            <a href="https://instagram.com/omar_mathlouthi" target="_blank">📸 @omar_mathlouthi</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Dr. Omar Mathlouthi. Tous droits réservés.</p>
+          <p style="color:#C9A84C; font-size:0.75rem;">Wear your best smile ✨</p>
+        </div>
+      </div>
+    </footer>
 
   </body>
 </html>
