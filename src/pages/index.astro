@@ -7,13 +7,13 @@ import '../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dr. Omar Mathlouthi — Dentiste Esthétique à Sousse</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { background: #ffffff; font-family: 'Inter', sans-serif; color: #0B1F3A; transition: background 0.3s, color 0.3s; }
+      body.rtl { direction: rtl; font-family: 'Noto Sans Arabic', sans-serif; }
 
       /* LIGHT MODE */
-      body.light-mode { background: #f5f0e8; }
       body.light-mode .about { background: #f5f0e8; }
       body.light-mode .services { background: #ede8de; }
       body.light-mode .service-card { background: #f5f0e8; }
@@ -25,19 +25,20 @@ import '../styles/global.css';
       body.light-mode #faq { background: #f5f0e8 !important; }
 
       /* NAV */
-      nav {
-        position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 20px 40px;
-        background: linear-gradient(to bottom, rgba(11,31,58,0.95), transparent);
-      }
+      nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: linear-gradient(to bottom, rgba(11,31,58,0.95), transparent); }
       .nav-logo-wrap { display: flex; flex-direction: column; }
       .nav-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.1rem; letter-spacing: 0.05em; line-height: 1.2; }
       .nav-slogan { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #C9A84C; margin-top: 2px; }
-      .nav-btn { font-size: 0.85rem; font-weight: 500; padding: 10px 24px; border-radius: 999px; border: 1px solid #C9A84C; color: #C9A84C; text-decoration: none; transition: all 0.3s; }
-      .nav-btn:hover { background: #C9A84C; color: #0B1F3A; }
+      .nav-right { display: flex; align-items: center; gap: 12px; }
       .theme-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.4); background: transparent; color: #C9A84C; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
       .theme-btn:hover { background: rgba(201,168,76,0.1); }
+      .lang-switcher { display: flex; align-items: center; gap: 4px; }
+      .lang-btn { background: transparent; border: none; color: rgba(255,255,255,0.5); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+      .lang-btn:hover { color: #C9A84C; }
+      .lang-btn.active { color: #C9A84C; border-bottom: 1px solid #C9A84C; }
+      .lang-divider { color: rgba(255,255,255,0.2); font-size: 0.7rem; }
+      .nav-btn { font-size: 0.85rem; font-weight: 500; padding: 10px 24px; border-radius: 999px; border: 1px solid #C9A84C; color: #C9A84C; text-decoration: none; transition: all 0.3s; }
+      .nav-btn:hover { background: #C9A84C; color: #0B1F3A; }
 
       /* HERO */
       .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
@@ -146,6 +147,7 @@ import '../styles/global.css';
         .about-inner, .footer-top { flex-direction: column; }
         .about-photos { grid-template-columns: 1fr; }
         .about-photo-main { height: 220px; }
+        .lang-switcher { display: none; }
       }
     </style>
   </head>
@@ -157,12 +159,20 @@ import '../styles/global.css';
         <span style="font-size:1.6rem;">🦷</span>
         <div class="nav-logo-wrap">
           <span class="nav-logo">Dr. Omar Mathlouthi</span>
-          <span class="nav-slogan">Wear your best smile</span>
+          <span class="nav-slogan" data-i18n="slogan">Wear your best smile</span>
         </div>
       </a>
-      <div style="display:flex; align-items:center; gap:12px;">
+      <div class="nav-right">
+        <a href="/avant-apres" style="font-size:0.85rem; color:rgba(255,255,255,0.7); text-decoration:none; transition:color 0.3s; white-space:nowrap;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(255,255,255,0.7)'" data-i18n="gallery_title">Avant & Après</a>
+        <div class="lang-switcher">
+          <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" onclick="setLang('en')">EN</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" onclick="setLang('ar')">AR</button>
+        </div>
         <button id="theme-toggle" class="theme-btn">☀️</button>
-        <a href="#booking" class="nav-btn">Prendre RDV</a>
+        <a href="#booking" class="nav-btn" data-i18n="nav_rdv">Prendre RDV</a>
       </div>
     </nav>
 
@@ -172,16 +182,16 @@ import '../styles/global.css';
       <div class="hero-overlay"></div>
       <div class="hero-gold-line"></div>
       <div class="hero-content">
-        <p class="hero-eyebrow">Dentisterie Esthétique · Sousse, Tunisie</p>
-        <h1 class="hero-title">Votre plus beau<br/><em>sourire</em> commence ici</h1>
-        <p class="hero-subtitle">Spécialiste en design du sourire, facettes et blanchiment. Une approche personnalisée pour un résultat naturel et élégant.</p>
+        <p class="hero-eyebrow" data-i18n="hero_eyebrow">Dentisterie Esthétique · Sousse, Tunisie</p>
+        <h1 class="hero-title" data-i18n="hero_title">Votre plus beau<br/><em data-i18n="hero_title_em">sourire</em> commence ici</h1>
+        <p class="hero-subtitle" data-i18n="hero_subtitle">Spécialiste en design du sourire, facettes et blanchiment. Une approche personnalisée pour un résultat naturel et élégant.</p>
         <div class="hero-buttons">
-          <a href="#booking" class="btn-primary">Réserver une consultation</a>
-          <a href="#services" class="btn-secondary">Découvrir les soins</a>
+          <a href="#booking" class="btn-primary" data-i18n="hero_btn1">Réserver une consultation</a>
+          <a href="#services" class="btn-secondary" data-i18n="hero_btn2">Découvrir les soins</a>
         </div>
       </div>
       <div class="scroll-indicator">
-        <span>Découvrir</span>
+        <span data-i18n="scroll">Découvrir</span>
         <div class="scroll-line"></div>
       </div>
     </section>
@@ -190,20 +200,20 @@ import '../styles/global.css';
     <section class="about" id="about">
       <div class="about-inner">
         <div class="about-text">
-          <p class="section-eyebrow">À propos</p>
-          <h2 class="section-title">Une vision moderne<br/>de la dentisterie</h2>
-          <p>Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.</p>
-          <p>Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.</p>
+          <p class="section-eyebrow" data-i18n="about_eyebrow">À propos</p>
+          <h2 class="section-title" data-i18n="about_title">Une vision moderne de la dentisterie</h2>
+          <p data-i18n="about_p1">Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.</p>
+          <p data-i18n="about_p2">Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.</p>
           <div class="stats">
-            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Années d'expérience</div></div>
-            <div class="stat"><div class="stat-number">500+</div><div class="stat-label">Sourires transformés</div></div>
-            <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Satisfaction patient</div></div>
+            <div class="stat"><div class="stat-number">10+</div><div class="stat-label" data-i18n="stat1">Années d'expérience</div></div>
+            <div class="stat"><div class="stat-number">500+</div><div class="stat-label" data-i18n="stat2">Sourires transformés</div></div>
+            <div class="stat"><div class="stat-number">100%</div><div class="stat-label" data-i18n="stat3">Satisfaction patient</div></div>
           </div>
         </div>
         <div class="about-photos">
           <div class="about-photo-main"><img src="/images/doctor.jpg" alt="Dr. Omar Mathlouthi" /></div>
-          <div class="about-photo-small"><img src="/images/cabinet1.jpg" alt="Cabinet dentaire" /></div>
-          <div class="about-photo-small"><img src="/images/cabinet3.jpg" alt="Équipement moderne" /></div>
+          <div class="about-photo-small"><img src="/images/cabinet1.jpg" alt="Cabinet" /></div>
+          <div class="about-photo-small"><img src="/images/cabinet3.jpg" alt="Cabinet" /></div>
         </div>
       </div>
     </section>
@@ -212,16 +222,16 @@ import '../styles/global.css';
     <section class="services" id="services">
       <div class="services-inner">
         <div class="section-header">
-          <p class="section-eyebrow">Nos soins</p>
-          <h2 class="section-title">Des traitements d'excellence</h2>
+          <p class="section-eyebrow" data-i18n="services_eyebrow">Nos soins</p>
+          <h2 class="section-title" data-i18n="services_title">Des traitements d'excellence</h2>
         </div>
         <div class="services-grid">
-          <div class="service-card"><div class="service-icon">✨</div><h3>Design du Sourire</h3><p>Transformation complète de votre sourire grâce à une planification digitale personnalisée et des techniques esthétiques avancées.</p></div>
-          <div class="service-card"><div class="service-icon">🦷</div><h3>Facettes en Porcelaine</h3><p>Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l'alignement de vos dents avec un résultat naturel.</p></div>
-          <div class="service-card"><div class="service-icon">⚪</div><h3>Blanchiment Dentaire</h3><p>Techniques professionnelles de blanchiment pour un sourire éclatant, en cabinet ou à domicile, avec des résultats durables.</p></div>
-          <div class="service-card"><div class="service-icon">😁</div><h3>Aligneurs Invisibles</h3><p>Redressez vos dents discrètement avec des gouttières transparentes et amovibles, sans compromis sur votre apparence.</p></div>
-          <div class="service-card"><div class="service-icon">🔩</div><h3>Implants Dentaires</h3><p>Remplacez vos dents manquantes par des implants en titane offrant la solidité et l'apparence d'une dent naturelle.</p></div>
-          <div class="service-card"><div class="service-icon">👑</div><h3>Couronnes Zircone</h3><p>Restaurez et protégez vos dents abîmées avec des couronnes en zircone entièrement personnalisées pour un rendu parfait.</p></div>
+          <div class="service-card"><div class="service-icon">✨</div><h3 data-i18n="s1_title">Design du Sourire</h3><p data-i18n="s1_desc">Transformation complète de votre sourire grâce à une planification digitale personnalisée.</p></div>
+          <div class="service-card"><div class="service-icon">🦷</div><h3 data-i18n="s2_title">Facettes en Porcelaine</h3><p data-i18n="s2_desc">Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l'alignement de vos dents.</p></div>
+          <div class="service-card"><div class="service-icon">⚪</div><h3 data-i18n="s3_title">Blanchiment Dentaire</h3><p data-i18n="s3_desc">Techniques professionnelles de blanchiment pour un sourire éclatant avec des résultats durables.</p></div>
+          <div class="service-card"><div class="service-icon">😁</div><h3 data-i18n="s4_title">Aligneurs Invisibles</h3><p data-i18n="s4_desc">Redressez vos dents discrètement avec des gouttières transparentes et amovibles.</p></div>
+          <div class="service-card"><div class="service-icon">🔩</div><h3 data-i18n="s5_title">Implants Dentaires</h3><p data-i18n="s5_desc">Remplacez vos dents manquantes par des implants en titane offrant la solidité d'une dent naturelle.</p></div>
+          <div class="service-card"><div class="service-icon">👑</div><h3 data-i18n="s6_title">Couronnes Zircone</h3><p data-i18n="s6_desc">Restaurez et protégez vos dents abîmées avec des couronnes en zircone personnalisées.</p></div>
         </div>
       </div>
     </section>
@@ -230,33 +240,33 @@ import '../styles/global.css';
     <section class="gallery" id="gallery">
       <div class="gallery-inner">
         <div class="section-header">
-          <p class="section-eyebrow">Résultats réels</p>
-          <h2 class="section-title" style="color:white;">Avant & Après</h2>
-          <p style="color:rgba(255,255,255,0.6); margin-top:16px; font-size:0.95rem;">Des transformations réelles réalisées au cabinet du Dr. Mathlouthi</p>
+          <p class="section-eyebrow" data-i18n="gallery_eyebrow">Résultats réels</p>
+          <h2 class="section-title" style="color:white;" data-i18n="gallery_title">Avant & Après</h2>
+          <p style="color:rgba(255,255,255,0.6); margin-top:16px; font-size:0.95rem;" data-i18n="gallery_sub">Des transformations réelles réalisées au cabinet du Dr. Mathlouthi</p>
         </div>
         <div class="gallery-grid">
-          <div class="gallery-card"><img src="/images/work1.jpg" alt="Bridge Zircone" /><div class="gallery-label"><span>Bridge 7 éléments · Zircone</span></div></div>
-          <div class="gallery-card"><img src="/images/work2.jpg" alt="Couronnes Zircone" /><div class="gallery-label"><span>4 Couronnes · Fermeture Diastème</span></div></div>
-          <div class="gallery-card"><img src="/images/work3.jpg" alt="Blanchiment" /><div class="gallery-label"><span>Détartrage + Blanchiment</span></div></div>
+          <div class="gallery-card"><img src="/images/work1.jpg" alt="Bridge Zircone" /><div class="gallery-label"><span data-i18n="g1">Bridge 7 éléments · Zircone</span></div></div>
+          <div class="gallery-card"><img src="/images/work2.jpg" alt="Couronnes Zircone" /><div class="gallery-label"><span data-i18n="g2">4 Couronnes · Fermeture Diastème</span></div></div>
+          <div class="gallery-card"><img src="/images/work3.jpg" alt="Blanchiment" /><div class="gallery-label"><span data-i18n="g3">Détartrage + Blanchiment</span></div></div>
         </div>
         <div style="text-align:center; margin-top:32px;">
-          <a href="/avant-apres" style="display:inline-block; padding:14px 36px; border-radius:999px; border:1px solid #C9A84C; color:#C9A84C; text-decoration:none; font-size:0.9rem; font-weight:500; transition:all 0.3s;" onmouseover="this.style.background='#C9A84C';this.style.color='#0B1F3A'" onmouseout="this.style.background='transparent';this.style.color='#C9A84C'">Voir tous les résultats →</a>
+          <a href="/avant-apres" style="display:inline-block; padding:14px 36px; border-radius:999px; border:1px solid #C9A84C; color:#C9A84C; text-decoration:none; font-size:0.9rem; font-weight:500; transition:all 0.3s;" onmouseover="this.style.background='#C9A84C';this.style.color='#0B1F3A'" onmouseout="this.style.background='transparent';this.style.color='#C9A84C'" data-i18n="gallery_btn">Voir tous les résultats →</a>
         </div>
       </div>
     </section>
 
-    <!-- WHY CHOOSE HIM -->
+    <!-- WHY -->
     <section class="why" id="why">
       <div class="why-inner">
         <div class="section-header">
-          <p class="section-eyebrow">Pourquoi nous choisir</p>
-          <h2 class="section-title">L'excellence à votre service</h2>
+          <p class="section-eyebrow" data-i18n="why_eyebrow">Pourquoi nous choisir</p>
+          <h2 class="section-title" data-i18n="why_title">L'excellence à votre service</h2>
         </div>
         <div class="why-grid">
-          <div class="why-card"><div class="why-icon">🏆</div><h3>Expertise Reconnue</h3><p>Plus de 10 ans de spécialisation en dentisterie esthétique avec des formations continues aux dernières techniques.</p></div>
-          <div class="why-card"><div class="why-icon">🔬</div><h3>Technologie de Pointe</h3><p>Cabinet équipé des équipements les plus modernes pour des diagnostics précis et des soins confortables.</p></div>
-          <div class="why-card"><div class="why-icon">💎</div><h3>Résultats Naturels</h3><p>Une approche artistique et médicale pour des sourires qui paraissent naturels et qui reflètent votre personnalité.</p></div>
-          <div class="why-card"><div class="why-icon">🤝</div><h3>Suivi Personnalisé</h3><p>Chaque patient bénéficie d'un plan de traitement sur mesure et d'un accompagnement tout au long de son parcours.</p></div>
+          <div class="why-card"><div class="why-icon">🏆</div><h3 data-i18n="w1_title">Expertise Reconnue</h3><p data-i18n="w1_desc">Plus de 10 ans de spécialisation en dentisterie esthétique avec des formations continues.</p></div>
+          <div class="why-card"><div class="why-icon">🔬</div><h3 data-i18n="w2_title">Technologie de Pointe</h3><p data-i18n="w2_desc">Cabinet équipé des équipements les plus modernes pour des diagnostics précis.</p></div>
+          <div class="why-card"><div class="why-icon">💎</div><h3 data-i18n="w3_title">Résultats Naturels</h3><p data-i18n="w3_desc">Une approche artistique pour des sourires naturels qui reflètent votre personnalité.</p></div>
+          <div class="why-card"><div class="why-icon">🤝</div><h3 data-i18n="w4_title">Suivi Personnalisé</h3><p data-i18n="w4_desc">Chaque patient bénéficie d'un plan de traitement sur mesure et d'un accompagnement complet.</p></div>
         </div>
       </div>
     </section>
@@ -265,13 +275,13 @@ import '../styles/global.css';
     <section class="testimonials" id="testimonials">
       <div class="testimonials-inner">
         <div class="section-header">
-          <p class="section-eyebrow">Témoignages</p>
-          <h2 class="section-title">Ce que disent nos patients</h2>
+          <p class="section-eyebrow" data-i18n="test_eyebrow">Témoignages</p>
+          <h2 class="section-title" data-i18n="test_title">Ce que disent nos patients</h2>
         </div>
         <div class="testimonials-grid">
-          <div class="testimonial-card"><div class="stars">★★★★★</div><p>"Le Dr. Mathlouthi a complètement transformé mon sourire. Le résultat est naturel et magnifique. Je recommande vivement !"</p><div class="testimonial-author">Sonia B. — Sousse</div></div>
-          <div class="testimonial-card"><div class="stars">★★★★★</div><p>"Professionnel, attentionné et très compétent. Mon blanchiment dentaire a dépassé toutes mes attentes. Merci Docteur !"</p><div class="testimonial-author">Ahmed K. — Tunis</div></div>
-          <div class="testimonial-card"><div class="stars">★★★★★</div><p>"Cabinet moderne, équipe accueillante. Mes facettes en zircone sont parfaites. Je souris enfin avec confiance !"</p><div class="testimonial-author">Mariem T. — Monastir</div></div>
+          <div class="testimonial-card"><div class="stars">★★★★★</div><p data-i18n="t1">"Le Dr. Mathlouthi a complètement transformé mon sourire. Le résultat est naturel et magnifique. Je recommande vivement !"</p><div class="testimonial-author">Sonia B. — Sousse</div></div>
+          <div class="testimonial-card"><div class="stars">★★★★★</div><p data-i18n="t2">"Professionnel, attentionné et très compétent. Mon blanchiment dentaire a dépassé toutes mes attentes. Merci Docteur !"</p><div class="testimonial-author">Ahmed K. — Tunis</div></div>
+          <div class="testimonial-card"><div class="stars">★★★★★</div><p data-i18n="t3">"Cabinet moderne, équipe accueillante. Mes facettes en zircone sont parfaites. Je souris enfin avec confiance !"</p><div class="testimonial-author">Mariem T. — Monastir</div></div>
         </div>
       </div>
     </section>
@@ -280,30 +290,30 @@ import '../styles/global.css';
     <section id="cabinet" style="background:#060f1e; padding:100px 24px;">
       <div style="max-width:1100px; margin:0 auto;">
         <div style="text-align:center; margin-bottom:60px;">
-          <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;">Notre espace</p>
-          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:white; margin-bottom:16px;">Un cabinet pensé pour vous</h2>
-          <p style="color:rgba(255,255,255,0.6); font-size:1rem; max-width:500px; margin:0 auto; line-height:1.7;">Un environnement moderne, chaleureux et équipé des dernières technologies pour votre confort.</p>
+          <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;" data-i18n="cab_eyebrow">Notre espace</p>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:white; margin-bottom:16px;" data-i18n="cab_title">Un cabinet pensé pour vous</h2>
+          <p style="color:rgba(255,255,255,0.6); font-size:1rem; max-width:500px; margin:0 auto; line-height:1.7;" data-i18n="cab_sub">Un environnement moderne, chaleureux et équipé des dernières technologies pour votre confort.</p>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; grid-template-rows:300px 300px; gap:16px; margin-bottom:48px;">
           <div style="grid-row:1/3; border-radius:20px; overflow:hidden; position:relative;">
             <img src="/images/cabinet1.jpg" alt="Salle d'attente" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
             <div style="position:absolute; bottom:0; left:0; right:0; padding:24px; background:linear-gradient(to top, rgba(6,15,30,0.9), transparent);">
-              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;">Accueil</p>
-              <p style="color:white; font-family:'Playfair Display',serif; font-size:1.1rem;">Salle d'attente</p>
+              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;" data-i18n="cab_l1a">Accueil</p>
+              <p style="color:white; font-family:'Playfair Display',serif; font-size:1.1rem;" data-i18n="cab_l1b">Salle d'attente</p>
             </div>
           </div>
           <div style="border-radius:20px; overflow:hidden; position:relative;">
             <img src="/images/cabinet2.jpg" alt="Salle de soin" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
             <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(to top, rgba(6,15,30,0.9), transparent);">
-              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;">Traitement</p>
-              <p style="color:white; font-family:'Playfair Display',serif; font-size:1rem;">Salle de soin</p>
+              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;" data-i18n="cab_l2a">Traitement</p>
+              <p style="color:white; font-family:'Playfair Display',serif; font-size:1rem;" data-i18n="cab_l2b">Salle de soin</p>
             </div>
           </div>
           <div style="border-radius:20px; overflow:hidden; position:relative;">
-            <img src="/images/cabinet3.jpg" alt="Dr. Omar Mathlouthi" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+            <img src="/images/cabinet3.jpg" alt="Dr. Omar" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
             <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(to top, rgba(6,15,30,0.9), transparent);">
-              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;">Expertise</p>
-              <p style="color:white; font-family:'Playfair Display',serif; font-size:1rem;">Dr. Omar Mathlouthi</p>
+              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;" data-i18n="cab_l3a">Expertise</p>
+              <p style="color:white; font-family:'Playfair Display',serif; font-size:1rem;" data-i18n="cab_l3b">Dr. Omar Mathlouthi</p>
             </div>
           </div>
         </div>
@@ -311,22 +321,22 @@ import '../styles/global.css';
           <div style="border-radius:16px; overflow:hidden; position:relative; height:280px;">
             <img src="/images/doctor.jpg" alt="Dr. Omar" style="width:100%; height:100%; object-fit:cover; object-position:top; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
             <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(to top, rgba(6,15,30,0.95), transparent);">
-              <p style="color:#C9A84C; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px;">Portrait</p>
-              <p style="color:white; font-size:0.95rem; font-family:'Playfair Display',serif;">Dr. Omar Mathlouthi</p>
+              <p style="color:#C9A84C; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px;" data-i18n="doc1a">Portrait</p>
+              <p style="color:white; font-size:0.95rem; font-family:'Playfair Display',serif;" data-i18n="doc1b">Dr. Omar Mathlouthi</p>
             </div>
           </div>
           <div style="border-radius:16px; overflow:hidden; position:relative; height:280px;">
             <img src="/images/doctor2.jpg" alt="En consultation" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
             <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(to top, rgba(6,15,30,0.95), transparent);">
-              <p style="color:#C9A84C; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px;">En action</p>
-              <p style="color:white; font-size:0.95rem; font-family:'Playfair Display',serif;">Consultation</p>
+              <p style="color:#C9A84C; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px;" data-i18n="doc2a">En action</p>
+              <p style="color:white; font-size:0.95rem; font-family:'Playfair Display',serif;" data-i18n="doc2b">Consultation</p>
             </div>
           </div>
           <div style="border-radius:16px; overflow:hidden; position:relative; height:280px;">
             <img src="/images/doctor3.jpg" alt="Soin en cours" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
             <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(to top, rgba(6,15,30,0.95), transparent);">
-              <p style="color:#C9A84C; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px;">Précision</p>
-              <p style="color:white; font-size:0.95rem; font-family:'Playfair Display',serif;">Soin en cours</p>
+              <p style="color:#C9A84C; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px;" data-i18n="doc3a">Précision</p>
+              <p style="color:white; font-size:0.95rem; font-family:'Playfair Display',serif;" data-i18n="doc3b">Soin en cours</p>
             </div>
           </div>
         </div>
@@ -336,29 +346,29 @@ import '../styles/global.css';
     <!-- BOOKING -->
     <section id="booking" style="background:#060f1e; padding:100px 24px;">
       <div style="max-width:700px; margin:0 auto; text-align:center;">
-        <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.25em; text-transform:uppercase; color:#C9A84C; margin-bottom:20px;">Rendez-vous</p>
-        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:white; margin-bottom:12px;">Réservez Votre Consultation</h2>
+        <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.25em; text-transform:uppercase; color:#C9A84C; margin-bottom:20px;" data-i18n="book_eyebrow">Rendez-vous</p>
+        <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:white; margin-bottom:12px;" data-i18n="book_title">Réservez Votre Consultation</h2>
         <div style="width:60px; height:1px; background:#C9A84C; margin:0 auto 48px;"></div>
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.2); border-radius:20px; padding:48px 40px;">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
             <div>
-              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;">Nom Complet</label>
-              <input id="booking-name" type="text" placeholder="Votre nom complet" style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'" />
+              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;" data-i18n="f_name">Nom Complet</label>
+              <input id="booking-name" type="text" data-i18n-ph="ph_name" placeholder="Votre nom complet" style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'" />
             </div>
             <div>
-              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;">Téléphone</label>
+              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;" data-i18n="f_phone">Téléphone</label>
               <input id="booking-phone" type="tel" placeholder="+216 XX XXX XXX" style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'" />
             </div>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
             <div>
-              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;">Date Souhaitée</label>
+              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;" data-i18n="f_date">Date Souhaitée</label>
               <input id="booking-date" type="date" style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none; color-scheme:dark;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'" />
             </div>
             <div>
-              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;">Heure Préférée</label>
+              <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;" data-i18n="f_time">Heure Préférée</label>
               <select id="booking-time" style="width:100%; padding:14px 18px; background:#0d1f38; border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'">
-                <option value="">Choisir une heure</option>
+                <option value="">--</option>
                 <option>09:00</option><option>09:30</option><option>10:00</option><option>10:30</option>
                 <option>11:00</option><option>11:30</option><option>14:00</option><option>14:30</option>
                 <option>15:00</option><option>15:30</option><option>16:00</option><option>16:30</option><option>17:00</option>
@@ -366,31 +376,29 @@ import '../styles/global.css';
             </div>
           </div>
           <div style="margin-bottom:20px;">
-            <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;">Type de Soin</label>
+            <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;" data-i18n="f_care">Type de Soin</label>
             <select id="booking-care" style="width:100%; padding:14px 18px; background:#0d1f38; border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'">
-              <option value="">Sélectionner un soin</option>
-              <option>Consultation générale</option>
-              <option>Design du Sourire</option>
-              <option>Facettes en Porcelaine</option>
-              <option>Blanchiment Dentaire</option>
-              <option>Aligneurs Invisibles</option>
-              <option>Implants Dentaires</option>
-              <option>Couronnes Zircone</option>
+              <option value="" data-i18n="care_0">Sélectionner un soin</option>
+              <option data-i18n="care_1">Consultation générale</option>
+              <option data-i18n="care_2">Design du Sourire</option>
+              <option data-i18n="care_3">Facettes en Porcelaine</option>
+              <option data-i18n="care_4">Blanchiment Dentaire</option>
+              <option data-i18n="care_5">Aligneurs Invisibles</option>
+              <option data-i18n="care_6">Implants Dentaires</option>
+              <option data-i18n="care_7">Couronnes Zircone</option>
             </select>
           </div>
           <div style="margin-bottom:32px;">
-            <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;">Message (optionnel)</label>
-            <textarea rows="3" placeholder="Décrivez votre situation ou posez vos questions..." style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none; resize:vertical;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'"></textarea>
+            <label style="display:block; font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:#C9A84C; margin-bottom:8px;" data-i18n="f_msg">Message (optionnel)</label>
+            <textarea rows="3" data-i18n-ph="ph_msg" placeholder="Décrivez votre situation ou posez vos questions..." style="width:100%; padding:14px 18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.2); border-radius:8px; color:white; font-size:0.9rem; font-family:'Inter',sans-serif; outline:none; resize:vertical;" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='rgba(201,168,76,0.2)'"></textarea>
           </div>
-          <button id="confirm-btn" style="width:100%; padding:18px; background:#C9A84C; color:#0B1F3A; border:none; border-radius:8px; font-size:0.85rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-            Confirmer la Réservation
-          </button>
-          <p style="margin-top:24px; font-size:0.8rem; color:rgba(255,255,255,0.35); line-height:1.6;">La réservation en ligne sera bientôt disponible. En attendant, nous traitons chaque demande personnellement.</p>
+          <button id="confirm-btn" style="width:100%; padding:18px; background:#C9A84C; color:#0B1F3A; border:none; border-radius:8px; font-size:0.85rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'" data-i18n="book_btn">Confirmer la Réservation</button>
+          <p style="margin-top:24px; font-size:0.8rem; color:rgba(255,255,255,0.35); line-height:1.6;" data-i18n="book_note">La réservation en ligne sera bientôt disponible. En attendant, nous traitons chaque demande personnellement.</p>
         </div>
         <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:32px;">
-          <a href="tel:+21698699295" style="display:flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px; border:1px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.85rem; transition:all 0.3s;" onmouseover="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(255,255,255,0.8)'">📞 98 699 295</a>
-          <a href="https://wa.me/21698699295" target="_blank" style="display:flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px; border:1px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.85rem; transition:all 0.3s;" onmouseover="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(255,255,255,0.8)'">💬 WhatsApp</a>
-          <a href="mailto:dr.omarmathlouthi@gmail.com" style="display:flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px; border:1px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.85rem; transition:all 0.3s;" onmouseover="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(255,255,255,0.8)'">✉️ Email</a>
+          <a href="tel:+21698699295" style="display:flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px; border:1px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.85rem;" onmouseover="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(255,255,255,0.8)'">📞 98 699 295</a>
+          <a href="https://wa.me/21698699295" target="_blank" style="display:flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px; border:1px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.85rem;" onmouseover="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(255,255,255,0.8)'">💬 WhatsApp</a>
+          <a href="mailto:dr.omarmathlouthi@gmail.com" style="display:flex; align-items:center; gap:10px; padding:14px 24px; border-radius:999px; border:1px solid rgba(201,168,76,0.3); color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.85rem;" onmouseover="this.style.borderColor='#C9A84C';this.style.color='#C9A84C'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)';this.style.color='rgba(255,255,255,0.8)'">✉️ Email</a>
         </div>
       </div>
     </section>
@@ -399,15 +407,15 @@ import '../styles/global.css';
     <div id="booking-overlay">
       <div class="conf-card">
         <div class="conf-check">✓</div>
-        <div class="conf-title">Réservation Confirmée</div>
-        <p class="conf-subtitle">Nous avons hâte de vous accueillir.<br/>Une confirmation sera envoyée sur votre téléphone.</p>
+        <div class="conf-title" data-i18n="conf_title">Réservation Confirmée</div>
+        <p class="conf-subtitle" data-i18n="conf_sub">Nous avons hâte de vous accueillir.<br/>Une confirmation sera envoyée sur votre téléphone.</p>
         <hr class="conf-divider"/>
-        <div class="conf-row"><span class="conf-label">Nom Complet</span><span class="conf-value" id="conf-name"></span></div>
-        <div class="conf-row"><span class="conf-label">Téléphone</span><span class="conf-value" id="conf-phone"></span></div>
-        <div class="conf-row"><span class="conf-label">Date</span><span class="conf-value" id="conf-date"></span></div>
-        <div class="conf-row"><span class="conf-label">Heure</span><span class="conf-value" id="conf-time"></span></div>
-        <div class="conf-row"><span class="conf-label">Soin</span><span class="conf-value" id="conf-care"></span></div>
-        <button class="conf-close" id="conf-close-btn">Fermer</button>
+        <div class="conf-row"><span class="conf-label" data-i18n="conf_name">Nom Complet</span><span class="conf-value" id="conf-name"></span></div>
+        <div class="conf-row"><span class="conf-label" data-i18n="conf_phone">Téléphone</span><span class="conf-value" id="conf-phone"></span></div>
+        <div class="conf-row"><span class="conf-label" data-i18n="conf_date">Date</span><span class="conf-value" id="conf-date"></span></div>
+        <div class="conf-row"><span class="conf-label" data-i18n="conf_time">Heure</span><span class="conf-value" id="conf-time"></span></div>
+        <div class="conf-row"><span class="conf-label" data-i18n="conf_care">Soin</span><span class="conf-value" id="conf-care"></span></div>
+        <button class="conf-close" id="conf-close-btn" data-i18n="conf_close">Fermer</button>
       </div>
     </div>
 
@@ -416,7 +424,7 @@ import '../styles/global.css';
       <div style="max-width:800px; margin:0 auto;">
         <div style="text-align:center; margin-bottom:60px;">
           <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;">FAQ</p>
-          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0B1F3A;">Questions fréquentes</h2>
+          <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem); font-weight:700; color:#0B1F3A;" data-i18n="faq_title">Questions fréquentes</h2>
         </div>
         <div id="faq-list"></div>
       </div>
@@ -429,38 +437,248 @@ import '../styles/global.css';
           <div class="footer-brand">
             <div class="footer-logo">Dr. Omar Mathlouthi</div>
             <div class="footer-slogan">Wear your best smile</div>
-            <p>Spécialiste en dentisterie esthétique à Sousse, Tunisie. Design du sourire, facettes, blanchiment et implants.</p>
+            <p data-i18n="footer_desc">Spécialiste en dentisterie esthétique à Sousse, Tunisie. Design du sourire, facettes, blanchiment et implants.</p>
           </div>
           <div class="footer-col">
-            <h4>Navigation</h4>
-            <a href="#about">À propos</a>
-            <a href="#services">Nos soins</a>
-            <a href="#gallery">Avant & Après</a>
-            <a href="#booking">Rendez-vous</a>
+            <h4 data-i18n="footer_nav">Navigation</h4>
+            <a href="#about" data-i18n="about_eyebrow">À propos</a>
+            <a href="#services" data-i18n="services_eyebrow">Nos soins</a>
+            <a href="#gallery" data-i18n="gallery_title">Avant & Après</a>
+            <a href="#booking" data-i18n="book_eyebrow">Rendez-vous</a>
           </div>
           <div class="footer-col">
-            <h4>Contact</h4>
+            <h4 data-i18n="footer_contact">Contact</h4>
             <p>📍 En face de clinique el Yosr Internationale, Immeuble le 103, Av. IBN EL Jazzar, Sousse 4002</p>
             <a href="tel:+21698699295">📞 98 699 295</a>
             <a href="https://instagram.com/cabinet_dr_omar_mathlouthi" target="_blank">📸 @cabinet_dr_omar_mathlouthi</a>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Dr. Omar Mathlouthi. Tous droits réservés.</p>
+          <p>© 2025 Dr. Omar Mathlouthi. <span data-i18n="footer_rights">Tous droits réservés.</span></p>
           <p style="color:#C9A84C; font-size:0.75rem;">Wear your best smile ✨</p>
         </div>
       </div>
     </footer>
 
     <script>
-      // THEME TOGGLE
+      // ── TRANSLATIONS ──
+      const translations = {
+        fr: {
+          slogan:'Wear your best smile', nav_rdv:'Prendre RDV',
+          hero_eyebrow:'Dentisterie Esthétique · Sousse, Tunisie',
+          hero_title:'Votre plus beau<br/><em>sourire</em> commence ici',
+          hero_subtitle:'Spécialiste en design du sourire, facettes et blanchiment. Une approche personnalisée pour un résultat naturel et élégant.',
+          hero_btn1:'Réserver une consultation', hero_btn2:'Découvrir les soins', scroll:'Découvrir',
+          about_eyebrow:'À propos', about_title:'Une vision moderne de la dentisterie',
+          about_p1:"Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.",
+          about_p2:"Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.",
+          stat1:"Années d'expérience", stat2:'Sourires transformés', stat3:'Satisfaction patient',
+          services_eyebrow:'Nos soins', services_title:"Des traitements d'excellence",
+          s1_title:'Design du Sourire', s1_desc:'Transformation complète de votre sourire grâce à une planification digitale personnalisée.',
+          s2_title:'Facettes en Porcelaine', s2_desc:'Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l\'alignement de vos dents.',
+          s3_title:'Blanchiment Dentaire', s3_desc:'Techniques professionnelles de blanchiment pour un sourire éclatant avec des résultats durables.',
+          s4_title:'Aligneurs Invisibles', s4_desc:'Redressez vos dents discrètement avec des gouttières transparentes et amovibles.',
+          s5_title:'Implants Dentaires', s5_desc:"Remplacez vos dents manquantes par des implants en titane offrant la solidité d'une dent naturelle.",
+          s6_title:'Couronnes Zircone', s6_desc:'Restaurez et protégez vos dents abîmées avec des couronnes en zircone personnalisées.',
+          gallery_eyebrow:'Résultats réels', gallery_title:'Avant & Après',
+          gallery_sub:'Des transformations réelles réalisées au cabinet du Dr. Mathlouthi',
+          g1:'Bridge 7 éléments · Zircone', g2:'4 Couronnes · Fermeture Diastème', g3:'Détartrage + Blanchiment',
+          gallery_btn:'Voir tous les résultats →',
+          why_eyebrow:'Pourquoi nous choisir', why_title:"L'excellence à votre service",
+          w1_title:'Expertise Reconnue', w1_desc:'Plus de 10 ans de spécialisation en dentisterie esthétique avec des formations continues.',
+          w2_title:'Technologie de Pointe', w2_desc:'Cabinet équipé des équipements les plus modernes pour des diagnostics précis.',
+          w3_title:'Résultats Naturels', w3_desc:'Une approche artistique pour des sourires naturels qui reflètent votre personnalité.',
+          w4_title:'Suivi Personnalisé', w4_desc:"Chaque patient bénéficie d'un plan de traitement sur mesure et d'un accompagnement complet.",
+          test_eyebrow:'Témoignages', test_title:'Ce que disent nos patients',
+          t1:'"Le Dr. Mathlouthi a complètement transformé mon sourire. Le résultat est naturel et magnifique. Je recommande vivement !"',
+          t2:'"Professionnel, attentionné et très compétent. Mon blanchiment dentaire a dépassé toutes mes attentes. Merci Docteur !"',
+          t3:'"Cabinet moderne, équipe accueillante. Mes facettes en zircone sont parfaites. Je souris enfin avec confiance !"',
+          cab_eyebrow:'Notre espace', cab_title:'Un cabinet pensé pour vous',
+          cab_sub:'Un environnement moderne, chaleureux et équipé des dernières technologies pour votre confort.',
+          cab_l1a:'Accueil', cab_l1b:"Salle d'attente", cab_l2a:'Traitement', cab_l2b:'Salle de soin',
+          cab_l3a:'Expertise', cab_l3b:'Dr. Omar Mathlouthi',
+          doc1a:'Portrait', doc1b:'Dr. Omar Mathlouthi', doc2a:'En action', doc2b:'Consultation', doc3a:'Précision', doc3b:'Soin en cours',
+          book_eyebrow:'Rendez-vous', book_title:'Réservez Votre Consultation',
+          f_name:'Nom Complet', ph_name:'Votre nom complet', f_phone:'Téléphone',
+          f_date:'Date Souhaitée', f_time:'Heure Préférée', f_care:'Type de Soin',
+          f_msg:'Message (optionnel)', ph_msg:'Décrivez votre situation ou posez vos questions...',
+          care_0:'Sélectionner un soin', care_1:'Consultation générale', care_2:'Design du Sourire',
+          care_3:'Facettes en Porcelaine', care_4:'Blanchiment Dentaire', care_5:'Aligneurs Invisibles',
+          care_6:'Implants Dentaires', care_7:'Couronnes Zircone',
+          book_btn:'Confirmer la Réservation',
+          book_note:'La réservation en ligne sera bientôt disponible. En attendant, nous traitons chaque demande personnellement.',
+          conf_title:'Réservation Confirmée',
+          conf_sub:'Nous avons hâte de vous accueillir.<br/>Une confirmation sera envoyée sur votre téléphone.',
+          conf_name:'Nom Complet', conf_phone:'Téléphone', conf_date:'Date', conf_time:'Heure', conf_care:'Soin', conf_close:'Fermer',
+          faq_title:'Questions fréquentes', footer_nav:'Navigation', footer_contact:'Contact',
+          footer_desc:'Spécialiste en dentisterie esthétique à Sousse, Tunisie. Design du sourire, facettes, blanchiment et implants.',
+          footer_rights:'Tous droits réservés.',
+          faqs: [
+            {q:"Comment prendre rendez-vous ?", a:"Contactez-nous par téléphone au 98 699 295 ou via WhatsApp. La réservation en ligne sera bientôt disponible directement depuis ce site."},
+            {q:"Combien coûte une consultation ?", a:"La première consultation est dédiée à l'évaluation de votre situation. Le Dr. Mathlouthi vous proposera un plan de traitement personnalisé avec un devis détaillé et transparent."},
+            {q:"Les facettes font-elles mal ?", a:"Non. La pose de facettes est une procédure non douloureuse réalisée sous anesthésie locale si nécessaire. La plupart des patients reprennent leurs activités normales le jour même."},
+            {q:"Combien de temps dure un blanchiment ?", a:"Une séance de blanchiment professionnel en cabinet dure environ 1 heure. Les résultats sont immédiats et peuvent durer plusieurs années avec un bon entretien."},
+            {q:"Les implants dentaires sont-ils durables ?", a:"Oui. Les implants en titane sont conçus pour durer toute une vie. Avec un entretien correct et des visites régulières, ils offrent une solution permanente et naturelle."},
+            {q:"Acceptez-vous les patients étrangers ?", a:"Absolument. Le cabinet accueille régulièrement des patients venant de France, d'Italie et d'autres pays pour des soins esthétiques de haute qualité à des tarifs compétitifs."},
+            {q:"Où se trouve le cabinet ?", a:"Le cabinet est situé en face de la clinique el Yosr Internationale, Immeuble le 103, Avenue IBN EL Jazzar, Sousse 4002, Tunisie."},
+          ]
+        },
+        en: {
+          slogan:'Wear your best smile', nav_rdv:'Book Appointment',
+          hero_eyebrow:'Aesthetic Dentistry · Sousse, Tunisia',
+          hero_title:'Your most beautiful<br/><em>smile</em> starts here',
+          hero_subtitle:'Specialist in smile design, veneers and whitening. A personalized approach for a natural and elegant result.',
+          hero_btn1:'Book a consultation', hero_btn2:'Discover our treatments', scroll:'Discover',
+          about_eyebrow:'About', about_title:'A modern vision of dentistry',
+          about_p1:'Dr. Omar Mathlouthi is a specialist in aesthetic dentistry in Sousse. Passionate about the art of smiling, he combines cutting-edge techniques with a human and personalized approach.',
+          about_p2:'His clinic is equipped with the latest technologies to offer you precise, comfortable care and results that exceed your expectations.',
+          stat1:'Years of experience', stat2:'Smiles transformed', stat3:'Patient satisfaction',
+          services_eyebrow:'Our treatments', services_title:'Excellence in every treatment',
+          s1_title:'Smile Design', s1_desc:'Complete smile transformation through personalized digital planning and advanced aesthetic techniques.',
+          s2_title:'Porcelain Veneers', s2_desc:'Ultra-thin ceramic veneers to correct the shape, color and alignment of your teeth with a natural result.',
+          s3_title:'Teeth Whitening', s3_desc:'Professional whitening techniques for a radiant smile, in-office or at home, with lasting results.',
+          s4_title:'Invisible Aligners', s4_desc:'Straighten your teeth discreetly with transparent, removable aligners without compromising your appearance.',
+          s5_title:'Dental Implants', s5_desc:'Replace missing teeth with titanium implants offering the strength and appearance of a natural tooth.',
+          s6_title:'Zirconia Crowns', s6_desc:'Restore and protect damaged teeth with fully customized zirconia crowns for a perfect result.',
+          gallery_eyebrow:'Real results', gallery_title:'Before & After',
+          gallery_sub:'Real transformations performed at Dr. Mathlouthi\'s clinic',
+          g1:'Bridge 7 elements · Zirconia', g2:'4 Crowns · Diastema Closure', g3:'Scaling + Whitening',
+          gallery_btn:'See all results →',
+          why_eyebrow:'Why choose us', why_title:'Excellence at your service',
+          w1_title:'Recognized Expertise', w1_desc:'Over 10 years of specialization in aesthetic dentistry with ongoing training in the latest techniques.',
+          w2_title:'Cutting-edge Technology', w2_desc:'Clinic equipped with the most modern equipment for precise diagnostics and comfortable care.',
+          w3_title:'Natural Results', w3_desc:'An artistic and medical approach for smiles that look natural and reflect your personality.',
+          w4_title:'Personalized Follow-up', w4_desc:'Each patient benefits from a tailored treatment plan and comprehensive support throughout their journey.',
+          test_eyebrow:'Testimonials', test_title:'What our patients say',
+          t1:'"Dr. Mathlouthi completely transformed my smile. The result is natural and magnificent. I highly recommend!"',
+          t2:'"Professional, attentive and very competent. My teeth whitening exceeded all my expectations. Thank you Doctor!"',
+          t3:'"Modern clinic, welcoming team. My zirconia veneers are perfect. I finally smile with confidence!"',
+          cab_eyebrow:'Our space', cab_title:'A clinic designed for you',
+          cab_sub:'A modern, warm environment equipped with the latest technologies for your comfort.',
+          cab_l1a:'Reception', cab_l1b:'Waiting room', cab_l2a:'Treatment', cab_l2b:'Treatment room',
+          cab_l3a:'Expertise', cab_l3b:'Dr. Omar Mathlouthi',
+          doc1a:'Portrait', doc1b:'Dr. Omar Mathlouthi', doc2a:'In action', doc2b:'Consultation', doc3a:'Precision', doc3b:'Treatment in progress',
+          book_eyebrow:'Appointment', book_title:'Book Your Consultation',
+          f_name:'Full Name', ph_name:'Your full name', f_phone:'Phone',
+          f_date:'Preferred Date', f_time:'Preferred Time', f_care:'Treatment Type',
+          f_msg:'Message (optional)', ph_msg:'Describe your situation or ask your questions...',
+          care_0:'Select a treatment', care_1:'General consultation', care_2:'Smile Design',
+          care_3:'Porcelain Veneers', care_4:'Teeth Whitening', care_5:'Invisible Aligners',
+          care_6:'Dental Implants', care_7:'Zirconia Crowns',
+          book_btn:'Confirm Appointment',
+          book_note:'Online booking coming soon. In the meantime, we handle each request personally.',
+          conf_title:'Appointment Confirmed',
+          conf_sub:'We look forward to welcoming you.<br/>A confirmation will be sent to your phone.',
+          conf_name:'Full Name', conf_phone:'Phone', conf_date:'Date', conf_time:'Time', conf_care:'Treatment', conf_close:'Close',
+          faq_title:'Frequently Asked Questions', footer_nav:'Navigation', footer_contact:'Contact',
+          footer_desc:'Specialist in aesthetic dentistry in Sousse, Tunisia. Smile design, veneers, whitening and implants.',
+          footer_rights:'All rights reserved.',
+          faqs: [
+            {q:"How do I make an appointment?", a:"Contact us by phone at 98 699 295 or via WhatsApp. Online booking will be available soon directly from this site."},
+            {q:"How much does a consultation cost?", a:"The first consultation is dedicated to evaluating your situation. Dr. Mathlouthi will propose a personalized treatment plan with a detailed and transparent quote."},
+            {q:"Do veneers hurt?", a:"No. The veneer procedure is painless and performed under local anesthesia if necessary. Most patients resume normal activities the same day."},
+            {q:"How long does whitening take?", a:"A professional in-office whitening session lasts about 1 hour. Results are immediate and can last several years with good maintenance."},
+            {q:"Are dental implants durable?", a:"Yes. Titanium implants are designed to last a lifetime. With proper maintenance and regular visits, they offer a permanent and natural solution."},
+            {q:"Do you accept foreign patients?", a:"Absolutely. The clinic regularly welcomes patients from France, Italy and other countries for high-quality aesthetic care at competitive prices."},
+            {q:"Where is the clinic located?", a:"The clinic is located opposite the el Yosr Internationale clinic, Building 103, IBN EL Jazzar Avenue, Sousse 4002, Tunisia."},
+          ]
+        },
+        ar: {
+          slogan:'ارتدِ أجمل ابتسامتك', nav_rdv:'احجز موعداً',
+          hero_eyebrow:'طب أسنان تجميلي · سوسة، تونس',
+          hero_title:'ابتسامتك <br/><em>الجميلة</em> تبدأ هنا',
+          hero_subtitle:'متخصص في تصميم الابتسامة والقشور والتبييض. نهج شخصي لنتيجة طبيعية وأنيقة.',
+          hero_btn1:'احجز استشارة', hero_btn2:'اكتشف علاجاتنا', scroll:'اكتشف',
+          about_eyebrow:'من نحن', about_title:'رؤية حديثة لطب الأسنان',
+          about_p1:'الدكتور عمر مطلوثي متخصص في طب الأسنان التجميلي في سوسة. شغوف بفن الابتسامة، يجمع بين أحدث التقنيات ونهج إنساني وشخصي.',
+          about_p2:'عيادته مجهزة بأحدث التقنيات لتقديم رعاية دقيقة ومريحة ونتائج تتجاوز توقعاتك.',
+          stat1:'سنوات من الخبرة', stat2:'ابتسامة تم تحويلها', stat3:'رضا المرضى',
+          services_eyebrow:'علاجاتنا', services_title:'تميز في كل علاج',
+          s1_title:'تصميم الابتسامة', s1_desc:'تحويل كامل لابتسامتك من خلال تخطيط رقمي شخصي وتقنيات جمالية متقدمة.',
+          s2_title:'قشور البورسلان', s2_desc:'قشور سيراميك رفيعة لتصحيح شكل ولون ومحاذاة أسنانك بنتيجة طبيعية.',
+          s3_title:'تبييض الأسنان', s3_desc:'تقنيات تبييض احترافية لابتسامة مشرقة في العيادة أو المنزل بنتائج دائمة.',
+          s4_title:'المحاذيات الشفافة', s4_desc:'قوّم أسنانك بشكل غير مرئي مع واقيات شفافة وقابلة للإزالة.',
+          s5_title:'زراعة الأسنان', s5_desc:'استبدل الأسنان المفقودة بغرسات تيتانيوم توفر متانة وشكل الأسنان الطبيعية.',
+          s6_title:'تيجان الزركونيا', s6_desc:'استعادة وحماية أسنانك التالفة بتيجان زركونيا مخصصة بالكامل.',
+          gallery_eyebrow:'نتائج حقيقية', gallery_title:'قبل وبعد',
+          gallery_sub:'تحولات حقيقية تمت في عيادة الدكتور مطلوثي',
+          g1:'جسر 7 عناصر · زركونيا', g2:'4 تيجان · إغلاق الفجوة', g3:'تنظيف + تبييض',
+          gallery_btn:'عرض جميع النتائج ←',
+          why_eyebrow:'لماذا تختارنا', why_title:'التميز في خدمتك',
+          w1_title:'خبرة معترف بها', w1_desc:'أكثر من 10 سنوات من التخصص في طب الأسنان التجميلي مع تدريب مستمر.',
+          w2_title:'تكنولوجيا متطورة', w2_desc:'عيادة مجهزة بأحدث المعدات لتشخيص دقيق ورعاية مريحة.',
+          w3_title:'نتائج طبيعية', w3_desc:'نهج فني وطبي لابتسامات طبيعية تعكس شخصيتك.',
+          w4_title:'متابعة شخصية', w4_desc:'يستفيد كل مريض من خطة علاج مخصصة ودعم شامل طوال رحلته.',
+          test_eyebrow:'شهادات', test_title:'ماذا يقول مرضانا',
+          t1:'"حوّل الدكتور مطلوثي ابتسامتي تماماً. النتيجة طبيعية ورائعة. أنصح به بشدة!"',
+          t2:'"محترف ومهتم وكفء جداً. تبييض أسناني تجاوز كل توقعاتي. شكراً دكتور!"',
+          t3:'"عيادة حديثة، فريق ترحيبي. قشور الزركونيا مثالية. أبتسم أخيراً بثقة!"',
+          cab_eyebrow:'فضاؤنا', cab_title:'عيادة مصممة لك',
+          cab_sub:'بيئة حديثة ودافئة مجهزة بأحدث التقنيات لراحتك.',
+          cab_l1a:'الاستقبال', cab_l1b:'غرفة الانتظار', cab_l2a:'العلاج', cab_l2b:'غرفة العلاج',
+          cab_l3a:'الخبرة', cab_l3b:'د. عمر مطلوثي',
+          doc1a:'صورة', doc1b:'د. عمر مطلوثي', doc2a:'في العمل', doc2b:'استشارة', doc3a:'دقة', doc3b:'علاج جارٍ',
+          book_eyebrow:'موعد', book_title:'احجز استشارتك',
+          f_name:'الاسم الكامل', ph_name:'اسمك الكامل', f_phone:'الهاتف',
+          f_date:'التاريخ المفضل', f_time:'الوقت المفضل', f_care:'نوع العلاج',
+          f_msg:'رسالة (اختياري)', ph_msg:'صف وضعك أو اطرح أسئلتك...',
+          care_0:'اختر علاجاً', care_1:'استشارة عامة', care_2:'تصميم الابتسامة',
+          care_3:'قشور البورسلان', care_4:'تبييض الأسنان', care_5:'المحاذيات الشفافة',
+          care_6:'زراعة الأسنان', care_7:'تيجان الزركونيا',
+          book_btn:'تأكيد الحجز',
+          book_note:'الحجز عبر الإنترنت قادم قريباً. في الوقت الحالي، نتعامل مع كل طلب بشكل شخصي.',
+          conf_title:'تم تأكيد الحجز',
+          conf_sub:'يسعدنا استقبالك.<br/>سيتم إرسال تأكيد على هاتفك.',
+          conf_name:'الاسم الكامل', conf_phone:'الهاتف', conf_date:'التاريخ', conf_time:'الوقت', conf_care:'العلاج', conf_close:'إغلاق',
+          faq_title:'الأسئلة الشائعة', footer_nav:'التنقل', footer_contact:'اتصل بنا',
+          footer_desc:'متخصص في طب الأسنان التجميلي في سوسة، تونس. تصميم الابتسامة والقشور والتبييض والغرسات.',
+          footer_rights:'جميع الحقوق محفوظة.',
+          faqs: [
+            {q:"كيف أحجز موعداً؟", a:"تواصل معنا عبر الهاتف على 98 699 295 أو عبر واتساب. الحجز عبر الإنترنت سيكون متاحاً قريباً مباشرة من هذا الموقع."},
+            {q:"كم تكلفة الاستشارة؟", a:"الاستشارة الأولى مخصصة لتقييم وضعك. سيقترح الدكتور مطلوثي خطة علاج شخصية مع عرض أسعار مفصل وشفاف."},
+            {q:"هل القشور مؤلمة؟", a:"لا. إجراء القشور غير مؤلم ويتم تحت تخدير موضعي إذا لزم الأمر. يستأنف معظم المرضى أنشطتهم الطبيعية في نفس اليوم."},
+            {q:"كم يستغرق التبييض؟", a:"تستغرق جلسة التبييض الاحترافية في العيادة حوالي ساعة واحدة. النتائج فورية ويمكن أن تدوم عدة سنوات مع العناية الجيدة."},
+            {q:"هل الغرسات السنية دائمة؟", a:"نعم. غرسات التيتانيوم مصممة لتدوم مدى الحياة. مع الصيانة الصحيحة والزيارات المنتظمة، توفر حلاً دائماً وطبيعياً."},
+            {q:"أين تقع العيادة؟", a:"تقع العيادة أمام عيادة اليسر الدولية، مبنى 103، شارع ابن الجزار، سوسة 4002، تونس."},
+          ]
+        }
+      };
+
+      let currentLang = 'fr';
+
+      window.setLang = function(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+        const isRTL = lang === 'ar';
+
+        document.documentElement.lang = lang;
+        document.body.classList.toggle('rtl', isRTL);
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (t[key] !== undefined) el.innerHTML = t[key];
+        });
+
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+          const key = el.getAttribute('data-i18n-ph');
+          if (t[key] !== undefined) el.placeholder = t[key];
+        });
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+        });
+
+        buildFAQ(t.faqs);
+      }
+
+      // ── THEME TOGGLE ──
       document.getElementById('theme-toggle').addEventListener('click', function() {
         const isLight = document.body.classList.contains('light-mode');
         document.body.classList.toggle('light-mode');
         this.textContent = isLight ? '☀️' : '🌙';
       });
 
-      // BOOKING FORM
+      // ── BOOKING FORM ──
       document.getElementById('confirm-btn').addEventListener('click', function() {
         const name = document.getElementById('booking-name').value;
         const phone = document.getElementById('booking-phone').value;
@@ -468,7 +686,7 @@ import '../styles/global.css';
         const time = document.getElementById('booking-time').value;
         const care = document.getElementById('booking-care').value;
         if (!name || !phone || !date || !time || !care) {
-          alert('Veuillez remplir tous les champs obligatoires.');
+          alert(currentLang === 'ar' ? 'يرجى ملء جميع الحقول الإلزامية.' : currentLang === 'en' ? 'Please fill in all required fields.' : 'Veuillez remplir tous les champs obligatoires.');
           return;
         }
         const formatDate = new Date(date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
@@ -486,54 +704,42 @@ import '../styles/global.css';
         document.body.style.overflow = '';
       });
 
-      // FAQ
-      const faqs = [
-        { q: "Comment prendre rendez-vous ?", a: "Contactez-nous par téléphone au 98 699 295 ou via WhatsApp. La réservation en ligne sera bientôt disponible directement depuis ce site." },
-        { q: "Combien coûte une consultation ?", a: "La première consultation est dédiée à l'évaluation de votre situation. Le Dr. Mathlouthi vous proposera un plan de traitement personnalisé avec un devis détaillé et transparent." },
-        { q: "Les facettes font-elles mal ?", a: "Non. La pose de facettes est une procédure non douloureuse réalisée sous anesthésie locale si nécessaire. La plupart des patients reprennent leurs activités normales le jour même." },
-        { q: "Combien de temps dure un blanchiment ?", a: "Une séance de blanchiment professionnel en cabinet dure environ 1 heure. Les résultats sont immédiats et peuvent durer plusieurs années avec un bon entretien." },
-        { q: "Les implants dentaires sont-ils durables ?", a: "Oui. Les implants en titane sont conçus pour durer toute une vie. Avec un entretien correct et des visites régulières, ils offrent une solution permanente et naturelle." },
-        { q: "Acceptez-vous les patients étrangers ?", a: "Absolument. Le cabinet du Dr. Mathlouthi accueille régulièrement des patients venant de France, d'Italie et d'autres pays pour des soins esthétiques de haute qualité à des tarifs compétitifs." },
-        { q: "Quelle est la différence entre couronne et facette ?", a: "Une facette couvre uniquement la face visible de la dent (traitement esthétique). Une couronne enveloppe toute la dent (traitement restaurateur). Le Dr. Mathlouthi vous conseillera la meilleure option selon votre cas." },
-        { q: "Où se trouve le cabinet ?", a: "Le cabinet est situé en face de la clinique el Yosr Internationale, Immeuble le 103, Avenue IBN EL Jazzar, Sousse 4002, Tunisie." },
-      ];
-
-      const list = document.getElementById('faq-list');
-      faqs.forEach((item, i) => {
-        list.innerHTML += `
-          <div style="border-bottom:1px solid #e5e7eb; overflow:hidden;">
-            <button data-faq="${i}" style="width:100%; display:flex; align-items:center; justify-content:space-between; padding:24px 0; background:none; border:none; cursor:pointer; text-align:left;">
-              <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:600; color:#0B1F3A;">${item.q}</span>
-              <span id="icon-${i}" style="color:#C9A84C; font-size:1.4rem; font-weight:300; transition:transform 0.3s; flex-shrink:0; margin-left:16px;">+</span>
-            </button>
-            <div id="faq-${i}" style="max-height:0; overflow:hidden; transition:max-height 0.4s ease;">
-              <p style="padding:0 0 24px; font-size:0.95rem; line-height:1.8; color:#4a5568;">${item.a}</p>
-            </div>
-          </div>
-        `;
-      });
+      // ── FAQ ──
+      function buildFAQ(faqs) {
+        const list = document.getElementById('faq-list');
+        list.innerHTML = '';
+        faqs.forEach((item, i) => {
+          list.innerHTML += `
+            <div style="border-bottom:1px solid #e5e7eb; overflow:hidden;">
+              <button data-faq="${i}" style="width:100%; display:flex; align-items:center; justify-content:space-between; padding:24px 0; background:none; border:none; cursor:pointer; text-align:left;">
+                <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:600; color:#0B1F3A;">${item.q}</span>
+                <span id="icon-${i}" style="color:#C9A84C; font-size:1.4rem; font-weight:300; transition:transform 0.3s; flex-shrink:0; margin-left:16px;">+</span>
+              </button>
+              <div id="faq-${i}" style="max-height:0; overflow:hidden; transition:max-height 0.4s ease;">
+                <p style="padding:0 0 24px; font-size:0.95rem; line-height:1.8; color:#4a5568;">${item.a}</p>
+              </div>
+            </div>`;
+        });
+      }
 
       document.addEventListener('click', function(e) {
         const btn = e.target.closest('[data-faq]');
-        if (btn) toggleFaq(Number(btn.dataset.faq));
+        if (btn) {
+          const i = Number(btn.dataset.faq);
+          const content = document.getElementById('faq-' + i);
+          const icon = document.getElementById('icon-' + i);
+          if (!content || !icon) return;
+          const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+          document.querySelectorAll('[id^="faq-"]').forEach((el, j) => {
+            el.style.maxHeight = '0px';
+            const ic = document.getElementById('icon-' + j);
+            if (ic) { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; }
+          });
+          if (!isOpen) { content.style.maxHeight = '300px'; icon.style.transform = 'rotate(45deg)'; }
+        }
       });
 
-      function toggleFaq(i) {
-        const content = document.getElementById('faq-' + i);
-        const icon = document.getElementById('icon-' + i);
-        if (!content || !icon) return;
-        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-        for (let j = 0; j < faqs.length; j++) {
-          const el = document.getElementById('faq-' + j);
-          const ic = document.getElementById('icon-' + j);
-          if (el) el.style.maxHeight = '0px';
-          if (ic) { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; }
-        }
-        if (!isOpen) {
-          content.style.maxHeight = '300px';
-          icon.style.transform = 'rotate(45deg)';
-        }
-      }
+      buildFAQ(translations.fr.faqs);
     </script>
 
   </body>
