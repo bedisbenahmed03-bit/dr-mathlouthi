@@ -132,7 +132,16 @@ import '../styles/global.css';
         <span class="nav-logo">Dr. Omar Mathlouthi</span>
         <span class="nav-slogan">Wear your best smile</span>
       </div>
-      <a href="/" class="nav-back">← Retour</a>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="lang-switcher" style="display:flex; align-items:center; gap:4px;">
+          <button class="lang-btn active" onclick="setLang('fr')" style="background:transparent; border:none; color:rgba(255,255,255,0.5); font-size:0.75rem; font-weight:500; cursor:pointer; padding:4px 8px; border-radius:4px; transition:all 0.2s; font-family:'Inter',sans-serif;">FR</button>
+          <span style="color:rgba(255,255,255,0.2); font-size:0.7rem;">|</span>
+          <button class="lang-btn" onclick="setLang('en')" style="background:transparent; border:none; color:rgba(255,255,255,0.5); font-size:0.75rem; font-weight:500; cursor:pointer; padding:4px 8px; border-radius:4px; transition:all 0.2s; font-family:'Inter',sans-serif;">EN</button>
+          <span style="color:rgba(255,255,255,0.2); font-size:0.7rem;">|</span>
+          <button class="lang-btn" onclick="setLang('ar')" style="background:transparent; border:none; color:rgba(255,255,255,0.5); font-size:0.75rem; font-weight:500; cursor:pointer; padding:4px 8px; border-radius:4px; transition:all 0.2s; font-family:'Inter',sans-serif;">AR</button>
+        </div>
+        <a href="/" class="nav-back" id="back-btn">← Retour</a>
+      </div>
     </nav>
 
     <div class="page-hero">
@@ -330,5 +339,28 @@ import '../styles/global.css';
       });
     </script>
 
+  <script>
+      const t = {
+        fr: { back:'← Retour', title:'Avant & Après', subtitle:'Des transformations authentiques réalisées au cabinet du Dr. Omar Mathlouthi à Sousse.', eyebrow:'Résultats réels', cta_title:'Vous aussi, transformez votre sourire', cta_sub:'Prenez rendez-vous pour une consultation personnalisée avec le Dr. Mathlouthi.', cta_btn:'Réserver une consultation' },
+        en: { back:'← Back', title:'Before & After', subtitle:'Authentic transformations performed at Dr. Omar Mathlouthi\'s clinic in Sousse.', eyebrow:'Real results', cta_title:'Transform your smile too', cta_sub:'Book a personalized consultation with Dr. Mathlouthi.', cta_btn:'Book a consultation' },
+        ar: { back:'← رجوع', title:'قبل وبعد', subtitle:'تحولات حقيقية تمت في عيادة الدكتور عمر مطلوثي في سوسة.', eyebrow:'نتائج حقيقية', cta_title:'حوّل ابتسامتك أنت أيضاً', cta_sub:'احجز استشارة شخصية مع الدكتور مطلوثي.', cta_btn:'احجز استشارة' }
+      };
+
+      window.setLang = function(lang) {
+        const l = t[lang];
+        const isRTL = lang === 'ar';
+        document.body.style.direction = isRTL ? 'rtl' : 'ltr';
+        document.getElementById('back-btn').textContent = l.back;
+        document.querySelector('.page-title').textContent = l.title;
+        document.querySelector('.page-subtitle').textContent = l.subtitle;
+        document.querySelector('.eyebrow').textContent = l.eyebrow;
+        document.querySelector('.cta-section h2').textContent = l.cta_title;
+        document.querySelector('.cta-section p').textContent = l.cta_sub;
+        document.querySelector('.btn-gold').textContent = l.cta_btn;
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.style.color = btn.textContent === lang.toUpperCase() ? '#C9A84C' : 'rgba(255,255,255,0.5)';
+        });
+      };
+    </script>
   </body>
 </html>

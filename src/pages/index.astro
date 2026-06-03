@@ -155,6 +155,7 @@ import '../styles/global.css';
 
     <!-- NAVBAR -->
     <nav>
+      <div style="display:flex; align-items:center; gap:28px;">
       <a href="/" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
         <span style="font-size:1.6rem;">🦷</span>
         <div class="nav-logo-wrap">
@@ -162,8 +163,9 @@ import '../styles/global.css';
           <span class="nav-slogan" data-i18n="slogan">Wear your best smile</span>
         </div>
       </a>
+      <a href="/avant-apres" style="font-size:0.85rem; color:rgba(255,255,255,0.7); text-decoration:none; transition:color 0.3s; white-space:nowrap;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Avant & Après</a>
+      </div>
       <div class="nav-right">
-        <a href="/avant-apres" style="font-size:0.85rem; color:rgba(255,255,255,0.7); text-decoration:none; transition:color 0.3s; white-space:nowrap;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(255,255,255,0.7)'" data-i18n="gallery_title">Avant & Après</a>
         <div class="lang-switcher">
           <button class="lang-btn active" onclick="setLang('fr')">FR</button>
           <span class="lang-divider">|</span>
