@@ -148,9 +148,10 @@ import '../styles/global.css';
       .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
       .hamburger.open span:nth-child(2) { opacity: 0; }
       .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-      .mobile-menu { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(11,31,58,0.98); flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+      .mobile-menu { display: none; position: fixed; inset: 0; z-index: 100; background: #0B1F3A; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
       .mobile-menu.open { display: flex; }
-      .mobile-menu a.mobile-link { font-size: 1.1rem; color: rgba(255,255,255,0.85); text-decoration: none; letter-spacing: 0.05em; }
+      .mobile-menu a.mobile-link { font-size: 1.2rem; font-weight: 500; color: #ffffff; text-decoration: none; letter-spacing: 0.05em; }
+      .mobile-menu .menu-divider { width: 60px; height: 1px; background: rgba(201,168,76,0.2); }
       .mobile-menu .lang-switcher { display: flex; }
       .mobile-menu .lang-btn { font-size: 0.95rem; padding: 6px 12px; }
       .mobile-menu .nav-btn { font-size: 0.95rem; padding: 14px 32px; }
@@ -206,6 +207,7 @@ import '../styles/global.css';
         <span class="lang-divider">|</span>
         <button class="lang-btn" onclick="setLang('ar')">AR</button>
       </div>
+      <div class="menu-divider"></div>
       <button class="theme-btn">☀️</button>
       <a href="#booking" class="nav-btn" data-i18n="nav_rdv">Prendre RDV</a>
     </div>
