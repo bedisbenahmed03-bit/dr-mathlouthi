@@ -116,11 +116,24 @@ import '../styles/global.css';
       .footer-mini { display: block; text-align: center; padding: 24px; font-size: 0.8rem; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.06); }
 
       @media (max-width: 768px) {
-        .lightbox-inner { flex-direction: column; max-height: 92vh; overflow-y: auto; border-radius: 16px; }
-        .lightbox-img-side { min-height: 260px; max-height: 50vh; }
-        .lightbox-img-side img { object-fit: contain; }
-        .lightbox-desc-side { width: 100%; min-width: unset; transform: translateY(20px); overflow-y: visible; }
+        /* Scroll the whole panel, top-aligned so nothing is clipped off-screen */
+        .lightbox { align-items: flex-start; padding: 12px; }
+        .lightbox-inner {
+          flex-direction: column;
+          max-height: calc(100vh - 24px);
+          max-height: calc(100dvh - 24px);
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+          border-radius: 16px;
+        }
+        /* Neither side may grow or shrink: the inner scrolls past both */
+        .lightbox-img-side { flex: 0 0 auto; min-height: 200px; max-height: 45vh; }
+        .lightbox-img-side img { object-fit: contain; max-height: 45vh; }
+        .lightbox-desc-side { width: 100%; min-width: unset; flex: 0 0 auto; overflow-y: visible; transform: translateY(20px); }
         .lightbox.active .lightbox-desc-side { transform: translateY(0); }
+        /* min-height:100% + margin-top:auto pinned the CTA below the fold */
+        .lightbox-desc-content { min-height: 0; padding: 24px 20px 28px; }
+        .lightbox-cta { margin-top: 20px; }
         nav { padding: 16px 20px; }
       }
     </style>
@@ -343,7 +356,7 @@ import '../styles/global.css';
       const t = {
         fr: { back:'← Retour', title:'Avant & Après', subtitle:'Des transformations authentiques réalisées au cabinet du Dr. Omar Mathlouthi à Sousse.', eyebrow:'Résultats réels', cta_title:'Vous aussi, transformez votre sourire', cta_sub:'Prenez rendez-vous pour une consultation personnalisée avec le Dr. Mathlouthi.', cta_btn:'Réserver une consultation' },
         en: { back:'← Back', title:'Before & After', subtitle:'Authentic transformations performed at Dr. Omar Mathlouthi\'s clinic in Sousse.', eyebrow:'Real results', cta_title:'Transform your smile too', cta_sub:'Book a personalized consultation with Dr. Mathlouthi.', cta_btn:'Book a consultation' },
-        ar: { back:'← رجوع', title:'قبل وبعد', subtitle:'تحولات حقيقية تمت في عيادة الدكتور عمر مطلوثي في سوسة.', eyebrow:'نتائج حقيقية', cta_title:'حوّل ابتسامتك أنت أيضاً', cta_sub:'احجز استشارة شخصية مع الدكتور مطلوثي.', cta_btn:'احجز استشارة' }
+        ar: { back:'← رجوع', title:'قبل وبعد', subtitle:'تحولات حقيقية تمت في عيادة الدكتور عمر المثلوثي في سوسة.', eyebrow:'نتائج حقيقية', cta_title:'حوّل ابتسامتك أنت أيضاً', cta_sub:'احجز استشارة شخصية مع الدكتور عمر المثلوثي.', cta_btn:'احجز استشارة' }
       };
 
       window.setLang = function(lang) {
