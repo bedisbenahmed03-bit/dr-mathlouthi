@@ -142,28 +142,18 @@ import '../styles/global.css';
       .conf-close { margin-top: 36px; padding: 14px 40px; background: transparent; border: 1px solid rgba(201,168,76,0.4); border-radius: 2px; color: #C9A84C; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s; }
       .conf-close:hover { background: rgba(201,168,76,0.1); }
 
-      /* MOBILE MENU */
-      .hamburger { display: none; position: fixed; top: 16px; right: 20px; z-index: 110; width: 44px; height: 44px; padding: 0; background: transparent; border: none; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
-      .hamburger span { display: block; width: 26px; height: 2px; background: #C9A84C; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
-      .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-      .hamburger.open span:nth-child(2) { opacity: 0; }
-      .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-      .mobile-menu { display: none; position: fixed; inset: 0; z-index: 100; background: #0B1F3A; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
-      .mobile-menu.open { display: flex; }
-      .mobile-menu a.mobile-link { font-size: 1.2rem; font-weight: 500; color: #ffffff; text-decoration: none; letter-spacing: 0.05em; }
-      .mobile-menu .menu-divider { width: 60px; height: 1px; background: rgba(201,168,76,0.2); }
-      .mobile-menu .lang-switcher { display: flex; }
-      .mobile-menu .lang-btn { font-size: 0.95rem; padding: 6px 12px; }
-      .mobile-menu .nav-btn { font-size: 0.95rem; padding: 14px 32px; }
+      /* Avant & Après link shown in .nav-right on mobile only */
+      .nav-mobile-link { display: none; }
 
       @media (max-width: 768px) {
-        nav { padding: 16px 20px; }
+        nav { padding: 16px 20px; flex-wrap: wrap; justify-content: center; gap: 12px 16px; }
         .about-inner, .footer-top { flex-direction: column; }
         .about-photos { grid-template-columns: 1fr; }
         .about-photo-main { height: 220px; }
-        .nav-right { display: none; }
+        .nav-right { flex-wrap: wrap; justify-content: center; gap: 10px 12px; }
         .nav-desktop-link { display: none; }
-        .hamburger { display: flex; }
+        .nav-mobile-link { display: inline-block; font-size: 0.8rem; color: rgba(255,255,255,0.7); text-decoration: none; white-space: nowrap; }
+        .nav-btn { font-size: 0.8rem; padding: 8px 18px; }
       }
     </style>
   </head>
@@ -182,6 +172,7 @@ import '../styles/global.css';
       <a href="/avant-apres" class="nav-desktop-link" style="font-size:0.85rem; color:rgba(255,255,255,0.7); text-decoration:none; transition:color 0.3s; white-space:nowrap;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Avant & Après</a>
       </div>
       <div class="nav-right">
+        <a href="/avant-apres" class="nav-mobile-link">Avant &amp; Après</a>
         <div class="lang-switcher">
           <button class="lang-btn active" onclick="setLang('fr')">FR</button>
           <span class="lang-divider">|</span>
@@ -193,24 +184,6 @@ import '../styles/global.css';
         <a href="#booking" class="nav-btn" data-i18n="nav_rdv">Prendre RDV</a>
       </div>
     </nav>
-
-    <!-- MOBILE MENU -->
-    <button id="hamburger" class="hamburger" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <div id="mobile-menu" class="mobile-menu">
-      <a href="/avant-apres" class="mobile-link">Avant &amp; Après</a>
-      <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLang('fr')">FR</button>
-        <span class="lang-divider">|</span>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-        <span class="lang-divider">|</span>
-        <button class="lang-btn" onclick="setLang('ar')">AR</button>
-      </div>
-      <div class="menu-divider"></div>
-      <button class="theme-btn">☀️</button>
-      <a href="#booking" class="nav-btn" data-i18n="nav_rdv">Prendre RDV</a>
-    </div>
 
     <!-- HERO -->
     <section class="hero">
@@ -708,32 +681,10 @@ import '../styles/global.css';
       }
 
       // ── THEME TOGGLE ──
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const isLight = document.body.classList.contains('light-mode');
-          document.body.classList.toggle('light-mode');
-          document.querySelectorAll('.theme-btn').forEach(b => {
-            b.textContent = isLight ? '☀️' : '🌙';
-          });
-        });
-      });
-
-      // ── MOBILE MENU ──
-      const hamburger = document.getElementById('hamburger');
-      const mobileMenu = document.getElementById('mobile-menu');
-      hamburger.addEventListener('click', () => {
-        const open = mobileMenu.classList.toggle('open');
-        hamburger.classList.toggle('open', open);
-        hamburger.setAttribute('aria-expanded', String(open));
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.remove('open');
-          hamburger.classList.remove('open');
-          hamburger.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        });
+      document.getElementById('theme-toggle').addEventListener('click', function() {
+        const isLight = document.body.classList.contains('light-mode');
+        document.body.classList.toggle('light-mode');
+        this.textContent = isLight ? '☀️' : '🌙';
       });
 
       // ── BOOKING FORM ──
