@@ -142,18 +142,29 @@ import '../styles/global.css';
       .conf-close { margin-top: 36px; padding: 14px 40px; background: transparent; border: 1px solid rgba(201,168,76,0.4); border-radius: 2px; color: #C9A84C; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s; }
       .conf-close:hover { background: rgba(201,168,76,0.1); }
 
-      /* Avant & Après link shown in .nav-right on mobile only */
-      .nav-mobile-link { display: none; }
+      /* MOBILE HAMBURGER + DROPDOWN (hidden on desktop) */
+      .hamburger { display: none; width: 30px; height: 30px; padding: 0; background: transparent; border: none; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+      .hamburger span { display: block; width: 22px; height: 2px; background: #C9A84C; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .nav-dropdown { display: none; position: absolute; top: 100%; right: 20px; background: #0B1F3A; border: 1px solid rgba(201,168,76,0.25); border-radius: 12px; padding: 16px; flex-direction: column; align-items: stretch; gap: 14px; min-width: 180px; box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+      .nav-dropdown .dropdown-link { font-size: 0.9rem; color: rgba(255,255,255,0.85); text-decoration: none; white-space: nowrap; text-align: center; padding: 4px 0; }
+      .nav-dropdown .nav-btn { text-align: center; font-size: 0.85rem; padding: 10px 20px; }
 
       @media (max-width: 768px) {
-        nav { padding: 16px 20px; flex-wrap: wrap; justify-content: center; gap: 12px 16px; }
+        nav { padding: 16px 20px; flex-wrap: nowrap; justify-content: space-between; }
         .about-inner, .footer-top { flex-direction: column; }
         .about-photos { grid-template-columns: 1fr; }
         .about-photo-main { height: 220px; }
-        .nav-right { flex-wrap: wrap; justify-content: center; gap: 10px 12px; }
+        .nav-right { flex-wrap: nowrap; gap: 8px; }
         .nav-desktop-link { display: none; }
-        .nav-mobile-link { display: inline-block; font-size: 0.8rem; color: rgba(255,255,255,0.7); text-decoration: none; white-space: nowrap; }
-        .nav-btn { font-size: 0.8rem; padding: 8px 18px; }
+        .nav-right .nav-btn { display: none; }
+        .nav-logo { font-size: 0.95rem; }
+        .nav-slogan { font-size: 0.55rem; letter-spacing: 0.12em; }
+        .lang-btn { padding: 4px 5px; }
+        .hamburger { display: flex; }
+        .nav-dropdown.open { display: flex; }
       }
     </style>
   </head>
@@ -172,7 +183,6 @@ import '../styles/global.css';
       <a href="/avant-apres" class="nav-desktop-link" style="font-size:0.85rem; color:rgba(255,255,255,0.7); text-decoration:none; transition:color 0.3s; white-space:nowrap;" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">Avant & Après</a>
       </div>
       <div class="nav-right">
-        <a href="/avant-apres" class="nav-mobile-link">Avant &amp; Après</a>
         <div class="lang-switcher">
           <button class="lang-btn active" onclick="setLang('fr')">FR</button>
           <span class="lang-divider">|</span>
@@ -181,6 +191,13 @@ import '../styles/global.css';
           <button class="lang-btn" onclick="setLang('ar')">AR</button>
         </div>
         <button id="theme-toggle" class="theme-btn">☀️</button>
+        <a href="#booking" class="nav-btn" data-i18n="nav_rdv">Prendre RDV</a>
+        <button id="hamburger" class="hamburger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div id="nav-dropdown" class="nav-dropdown">
+        <a href="/avant-apres" class="dropdown-link">Avant &amp; Après</a>
         <a href="#booking" class="nav-btn" data-i18n="nav_rdv">Prendre RDV</a>
       </div>
     </nav>
@@ -685,6 +702,33 @@ import '../styles/global.css';
         const isLight = document.body.classList.contains('light-mode');
         document.body.classList.toggle('light-mode');
         this.textContent = isLight ? '☀️' : '🌙';
+      });
+
+      // ── MOBILE DROPDOWN ──
+      const hamburger = document.getElementById('hamburger');
+      const navDropdown = document.getElementById('nav-dropdown');
+
+      function closeDropdown() {
+        navDropdown.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+
+      hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = navDropdown.classList.toggle('open');
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', String(open));
+      });
+
+      navDropdown.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeDropdown);
+      });
+
+      document.addEventListener('click', (e) => {
+        if (navDropdown.classList.contains('open') && !navDropdown.contains(e.target)) {
+          closeDropdown();
+        }
       });
 
       // ── BOOKING FORM ──
