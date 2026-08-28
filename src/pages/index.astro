@@ -534,7 +534,7 @@ import '../styles/global.css';
     </section>
 
     <!-- FAQ -->
-    <section id="faq" style="background:#ffffff; padding:100px 24px;">
+    <section id="faq" style="background:#ffffff; padding:100px 24px 140px;">
       <div style="max-width:800px; margin:0 auto;">
         <div style="text-align:center; margin-bottom:60px;">
           <p style="font-size:0.8rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#C9A84C; margin-bottom:16px;">FAQ</p>
@@ -877,11 +877,23 @@ import '../styles/global.css';
                 <span style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:600; color:#0B1F3A;">${item.q}</span>
                 <span id="icon-${i}" style="color:#C9A84C; font-size:1.4rem; font-weight:300; transition:transform 0.3s; flex-shrink:0; margin-left:16px;">+</span>
               </button>
-              <div id="faq-${i}" style="max-height:0; overflow:hidden; transition:max-height 0.4s ease;">
+              <div id="faq-${i}" class="faq-answer" data-answer="${i}" style="max-height:0; overflow:hidden; transition:max-height 0.4s ease;">
                 <p style="padding:0 0 24px; font-size:0.95rem; line-height:1.8; color:#4a5568;">${item.a}</p>
               </div>
             </div>`;
         });
+      }
+
+      // Collapse one answer panel. Reads back a computed height first so the
+      // transition still runs when the panel was left at max-height:none.
+      function closeAnswer(el) {
+        if (el.style.maxHeight === 'none') {
+          el.style.maxHeight = el.scrollHeight + 'px';
+          void el.offsetHeight; // force reflow so the next value animates
+        }
+        el.style.maxHeight = '0px';
+        const ic = document.getElementById('icon-' + el.dataset.answer);
+        if (ic) { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; }
       }
 
       document.addEventListener('click', function(e) {
@@ -892,13 +904,23 @@ import '../styles/global.css';
           const icon = document.getElementById('icon-' + i);
           if (!content || !icon) return;
           const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-          document.querySelectorAll('[id^="faq-"]').forEach((el, j) => {
-            el.style.maxHeight = '0px';
-            const ic = document.getElementById('icon-' + j);
-            if (ic) { ic.textContent = '+'; ic.style.transform = 'rotate(0deg)'; }
-          });
-          if (!isOpen) { content.style.maxHeight = '300px'; icon.style.transform = 'rotate(45deg)'; }
+          // Only the answer panels — NOT the #faq-list container.
+          document.querySelectorAll('.faq-answer').forEach(closeAnswer);
+          if (!isOpen) {
+            // Measure the real content height instead of a fixed cap.
+            content.style.maxHeight = content.scrollHeight + 'px';
+            icon.textContent = '+';
+            icon.style.transform = 'rotate(45deg)';
+          }
         }
+      });
+
+      // Once open, drop the cap so the panel keeps fitting its content if the
+      // text reflows (resize, font load, language switch).
+      document.addEventListener('transitionend', function(e) {
+        const el = e.target;
+        if (e.propertyName !== 'max-height' || !el.classList || !el.classList.contains('faq-answer')) return;
+        if (el.style.maxHeight !== '0px') el.style.maxHeight = 'none';
       });
 
       buildFAQ(translations.fr.faqs);
