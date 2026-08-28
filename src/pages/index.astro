@@ -152,6 +152,23 @@ import '../styles/global.css';
       .nav-dropdown .dropdown-link { font-size: 0.9rem; color: rgba(255,255,255,0.85); text-decoration: none; white-space: nowrap; text-align: center; padding: 4px 0; }
       .nav-dropdown .nav-btn { text-align: center; font-size: 0.85rem; padding: 10px 20px; }
 
+      /* ── LOCATION / MAP ── */
+      .map-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+      .map-frame { width: 100%; height: 400px; border: 0; border-radius: 16px; display: block; }
+      .contact-row { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(11,31,58,0.08); }
+      .contact-row:last-child { border-bottom: none; }
+      .contact-icon { color: #C9A84C; font-size: 1.1rem; line-height: 1.5; flex-shrink: 0; }
+      .contact-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #C9A84C; margin-bottom: 4px; }
+      .contact-value { color: #0B1F3A; font-size: 0.95rem; line-height: 1.6; text-decoration: none; }
+      a.contact-value:hover { color: #C9A84C; }
+      .hours-line { display: flex; justify-content: space-between; gap: 16px; font-size: 0.9rem; color: #0B1F3A; padding: 4px 0; }
+      .hours-line span:last-child { color: rgba(11,31,58,0.6); }
+
+      /* ── FLOATING WHATSAPP ── */
+      .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.22); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+      .wa-float:hover { transform: scale(1.08); box-shadow: 0 8px 26px rgba(0,0,0,0.3); }
+      .wa-float svg { width: 30px; height: 30px; fill: #ffffff; }
+
       @media (max-width: 768px) {
         nav { padding: 16px 20px; flex-wrap: nowrap; justify-content: space-between; }
         .about-inner, .footer-top { flex-direction: column; }
@@ -172,6 +189,9 @@ import '../styles/global.css';
         /* Cabinet photos: more height so faces are less cropped */
         .cabinet-grid { grid-template-rows: 320px 320px !important; }
         .cabinet-photo { height: 320px !important; }
+
+        /* Location: stack map and contact details */
+        .map-grid { grid-template-columns: 1fr; gap: 32px; }
       }
     </style>
   </head>
@@ -452,6 +472,67 @@ import '../styles/global.css';
       </div>
     </div>
 
+    <!-- LOCATION / MAP -->
+    <section id="location" style="background:#f8f7f4; padding:100px 24px;">
+      <div style="text-align:center; margin-bottom:60px;">
+        <p class="section-eyebrow" data-i18n="loc_eyebrow">Nous trouver</p>
+        <h2 class="section-title" data-i18n="loc_title">Venez nous rendre visite</h2>
+      </div>
+      <div class="map-grid">
+        <div>
+          <iframe
+            class="map-frame"
+            src="https://www.google.com/maps?q=Immeuble%20le%20103%2C%20Avenue%20IBN%20EL%20Jazzar%2C%20Sousse%204002%2C%20Tunisia&output=embed"
+            width="100%"
+            height="400"
+            style="border:0; border-radius:16px;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Cabinet Dr. Omar Mathlouthi — Sousse"
+            allowfullscreen></iframe>
+        </div>
+        <div>
+          <div class="contact-row">
+            <span class="contact-icon">📍</span>
+            <div>
+              <div class="contact-label" data-i18n="loc_address_label">Adresse</div>
+              <div class="contact-value" data-i18n="loc_address">En face de la Clinique El Yosr Internationale, Immeuble le 103, Avenue IBN EL Jazzar, Sousse 4002, Tunisie</div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">📞</span>
+            <div>
+              <div class="contact-label" data-i18n="loc_phone_label">Téléphone</div>
+              <a class="contact-value" href="tel:+21698699295">98 699 295</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">✉️</span>
+            <div>
+              <div class="contact-label" data-i18n="loc_email_label">Email</div>
+              <a class="contact-value" href="mailto:dr.omarmathlouthi@gmail.com">dr.omarmathlouthi@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">📸</span>
+            <div>
+              <div class="contact-label" data-i18n="loc_insta_label">Instagram</div>
+              <a class="contact-value" href="https://instagram.com/cabinet_dr_omar_mathlouthi" target="_blank">@cabinet_dr_omar_mathlouthi</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">🕐</span>
+            <div style="flex:1;">
+              <div class="contact-label" data-i18n="loc_hours_label">Horaires d'ouverture</div>
+              <div class="hours-line"><span data-i18n="loc_h1_day">Lundi – Vendredi</span><span data-i18n="loc_h1_time">09:00 – 17:00</span></div>
+              <div class="hours-line"><span data-i18n="loc_h2_day">Samedi</span><span data-i18n="loc_h2_time">09:00 – 13:00</span></div>
+              <div class="hours-line"><span data-i18n="loc_h3_day">Dimanche</span><span data-i18n="loc_h3_time">Fermé</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ -->
     <section id="faq" style="background:#ffffff; padding:100px 24px;">
       <div style="max-width:800px; margin:0 auto;">
@@ -543,6 +624,13 @@ import '../styles/global.css';
           conf_title:'Réservation Confirmée',
           conf_sub:'Nous avons hâte de vous accueillir.<br/>Une confirmation sera envoyée sur votre téléphone.',
           conf_name:'Nom Complet', conf_phone:'Téléphone', conf_date:'Date', conf_time:'Heure', conf_care:'Soin', conf_close:'Fermer',
+          loc_eyebrow:'Nous trouver', loc_title:'Venez nous rendre visite',
+          loc_address_label:'Adresse', loc_address:'En face de la Clinique El Yosr Internationale, Immeuble le 103, Avenue IBN EL Jazzar, Sousse 4002, Tunisie',
+          loc_phone_label:'Téléphone', loc_email_label:'Email', loc_insta_label:'Instagram',
+          loc_hours_label:"Horaires d'ouverture",
+          loc_h1_day:'Lundi – Vendredi', loc_h1_time:'09:00 – 17:00',
+          loc_h2_day:'Samedi', loc_h2_time:'09:00 – 13:00',
+          loc_h3_day:'Dimanche', loc_h3_time:'Fermé',
           faq_title:'Questions fréquentes', footer_nav:'Navigation', footer_contact:'Contact',
           footer_desc:'Spécialiste en dentisterie esthétique à Sousse, Tunisie. Design du sourire, facettes, blanchiment et implants.',
           footer_rights:'Tous droits réservés.',
@@ -603,6 +691,13 @@ import '../styles/global.css';
           conf_title:'Appointment Confirmed',
           conf_sub:'We look forward to welcoming you.<br/>A confirmation will be sent to your phone.',
           conf_name:'Full Name', conf_phone:'Phone', conf_date:'Date', conf_time:'Time', conf_care:'Treatment', conf_close:'Close',
+          loc_eyebrow:'Find us', loc_title:'Come and visit us',
+          loc_address_label:'Address', loc_address:'Opposite Clinique El Yosr Internationale, Building 103, IBN EL Jazzar Avenue, Sousse 4002, Tunisia',
+          loc_phone_label:'Phone', loc_email_label:'Email', loc_insta_label:'Instagram',
+          loc_hours_label:'Opening hours',
+          loc_h1_day:'Monday – Friday', loc_h1_time:'09:00 – 17:00',
+          loc_h2_day:'Saturday', loc_h2_time:'09:00 – 13:00',
+          loc_h3_day:'Sunday', loc_h3_time:'Closed',
           faq_title:'Frequently Asked Questions', footer_nav:'Navigation', footer_contact:'Contact',
           footer_desc:'Specialist in aesthetic dentistry in Sousse, Tunisia. Smile design, veneers, whitening and implants.',
           footer_rights:'All rights reserved.',
@@ -663,6 +758,13 @@ import '../styles/global.css';
           conf_title:'تم تأكيد الحجز',
           conf_sub:'يسعدنا استقبالك.<br/>سيتم إرسال تأكيد على هاتفك.',
           conf_name:'الاسم الكامل', conf_phone:'الهاتف', conf_date:'التاريخ', conf_time:'الوقت', conf_care:'العلاج', conf_close:'إغلاق',
+          loc_eyebrow:'أين نحن', loc_title:'تفضلوا بزيارتنا',
+          loc_address_label:'العنوان', loc_address:'أمام عيادة اليسر الدولية، مبنى 103، شارع ابن الجزار، سوسة 4002، تونس',
+          loc_phone_label:'الهاتف', loc_email_label:'البريد الإلكتروني', loc_insta_label:'إنستغرام',
+          loc_hours_label:'أوقات العمل',
+          loc_h1_day:'الاثنين – الجمعة', loc_h1_time:'09:00 – 17:00',
+          loc_h2_day:'السبت', loc_h2_time:'09:00 – 13:00',
+          loc_h3_day:'الأحد', loc_h3_time:'مغلق',
           faq_title:'الأسئلة الشائعة', footer_nav:'التنقل', footer_contact:'اتصل بنا',
           footer_desc:'متخصص في طب الأسنان التجميلي في سوسة، تونس. تصميم الابتسامة والقشور والتبييض والغرسات.',
           footer_rights:'جميع الحقوق محفوظة.',
@@ -801,6 +903,13 @@ import '../styles/global.css';
 
       buildFAQ(translations.fr.faqs);
     </script>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a class="wa-float" href="https://wa.me/21698699295" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.174.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 016.988 2.898 9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+      </svg>
+    </a>
 
   </body>
 </html>
