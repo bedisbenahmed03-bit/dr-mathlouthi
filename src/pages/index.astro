@@ -26,6 +26,7 @@ import '../styles/global.css';
 
       /* NAV */
       nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; background: linear-gradient(to bottom, rgba(11,31,58,0.95), transparent); }
+      .nav-tooth { font-size: 1.6rem; line-height: 1; }
       .nav-logo-wrap { display: flex; flex-direction: column; }
       .nav-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.1rem; letter-spacing: 0.05em; line-height: 1.2; }
       .nav-slogan { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #C9A84C; margin-top: 2px; }
@@ -185,10 +186,17 @@ import '../styles/global.css';
         .nav-right { flex-wrap: nowrap; gap: 8px; }
         .nav-center { display: none; }
         .nav-right .nav-btn { display: none; }
-        .nav-logo { font-size: 0.95rem; }
-        .nav-slogan { font-size: 0.55rem; letter-spacing: 0.12em; }
-        .lang-btn { padding: 4px 5px; }
-        .hamburger { display: flex; }
+        /* Keep the whole row on one line at 375px: drop the slogan, shrink
+           the wordmark and the icon, tighten the right-hand controls. */
+        .nav-brand { gap: 8px !important; }
+        .nav-tooth { font-size: 1.25rem; }
+        .nav-logo { font-size: 0.85rem; letter-spacing: 0.03em; white-space: nowrap; }
+        .nav-slogan { display: none; }
+        .lang-switcher { gap: 0; }
+        .lang-btn { padding: 4px 3px; font-size: 0.7rem; letter-spacing: 0.04em; }
+        .lang-divider { margin: 0 1px; }
+        .theme-btn { width: 32px; height: 32px; font-size: 0.85rem; }
+        .hamburger { display: flex; width: 24px; }
         .nav-dropdown.open { display: flex; }
 
         /* Booking form: stack the two-column rows (inline styles need !important) */
@@ -207,8 +215,8 @@ import '../styles/global.css';
 
     <!-- NAVBAR -->
     <nav>
-      <a href="/" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
-        <span style="font-size:1.6rem;">🦷</span>
+      <a href="/" class="nav-brand" style="text-decoration:none; display:flex; align-items:center; gap:12px;">
+        <span class="nav-tooth">🦷</span>
         <div class="nav-logo-wrap">
           <span class="nav-logo">Dr. Omar Mathlouthi</span>
           <span class="nav-slogan" data-i18n="slogan">Wear your best smile</span>
@@ -293,12 +301,12 @@ import '../styles/global.css';
           <h2 class="section-title" data-i18n="services_title">Des traitements d'excellence</h2>
         </div>
         <div class="services-grid">
-          <div class="service-card"><div class="service-icon">✨</div><h3 data-i18n="s1_title">Design du Sourire</h3><p data-i18n="s1_desc">Transformation complète de votre sourire grâce à une planification digitale personnalisée.</p></div>
-          <div class="service-card"><div class="service-icon">🦷</div><h3 data-i18n="s2_title">Facettes en Porcelaine</h3><p data-i18n="s2_desc">Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l'alignement de vos dents.</p></div>
-          <div class="service-card"><div class="service-icon">⚪</div><h3 data-i18n="s3_title">Blanchiment Dentaire</h3><p data-i18n="s3_desc">Techniques professionnelles de blanchiment pour un sourire éclatant avec des résultats durables.</p></div>
-          <div class="service-card"><div class="service-icon">😁</div><h3 data-i18n="s4_title">Aligneurs Invisibles</h3><p data-i18n="s4_desc">Redressez vos dents discrètement avec des gouttières transparentes et amovibles.</p></div>
-          <div class="service-card"><div class="service-icon">🔩</div><h3 data-i18n="s5_title">Implants Dentaires</h3><p data-i18n="s5_desc">Remplacez vos dents manquantes par des implants en titane offrant la solidité d'une dent naturelle.</p></div>
-          <div class="service-card"><div class="service-icon">👑</div><h3 data-i18n="s6_title">Couronnes Zircone</h3><p data-i18n="s6_desc">Restaurez et protégez vos dents abîmées avec des couronnes en zircone personnalisées.</p></div>
+          <div class="service-card"><div class="service-icon">✨</div><h3 data-i18n="s1_title">Design du Sourire</h3><p data-i18n="s1_desc">Nous concevons votre nouveau sourire numériquement avant de toucher une seule dent. Vous voyez le résultat, vous validez, puis nous le réalisons.</p></div>
+          <div class="service-card"><div class="service-icon">🦷</div><h3 data-i18n="s2_title">Facettes en Porcelaine</h3><p data-i18n="s2_desc">Des facettes de 0,3 mm posées sur l'émail existant. Forme, teinte et alignement corrigés en deux séances, sans dévitalisation.</p></div>
+          <div class="service-card"><div class="service-icon">⚪</div><h3 data-i18n="s3_title">Blanchiment Dentaire</h3><p data-i18n="s3_desc">Blanchiment au fauteuil en une séance d'une heure. Plusieurs teintes gagnées, avec gouttières de maintien pour prolonger le résultat.</p></div>
+          <div class="service-card"><div class="service-icon">😁</div><h3 data-i18n="s4_title">Aligneurs Invisibles</h3><p data-i18n="s4_desc">Gouttières transparentes changées toutes les deux semaines. Retirables pour manger et se brosser les dents. Personne ne les remarque.</p></div>
+          <div class="service-card"><div class="service-icon">🔩</div><h3 data-i18n="s5_title">Implants Dentaires</h3><p data-i18n="s5_desc">Une racine en titane qui remplace la dent manquante définitivement. Pose sous anesthésie locale, couronne posée après cicatrisation.</p></div>
+          <div class="service-card"><div class="service-icon">👑</div><h3 data-i18n="s6_title">Couronnes Zircone</h3><p data-i18n="s6_desc">Céramique sans métal, translucide comme l'émail naturel. Réalisées en Tunisie, ajustées à la teinte de vos dents voisines.</p></div>
         </div>
       </div>
     </section>
@@ -330,10 +338,10 @@ import '../styles/global.css';
           <h2 class="section-title" data-i18n="why_title">L'excellence à votre service</h2>
         </div>
         <div class="why-grid">
-          <div class="why-card"><div class="why-icon">🏆</div><h3 data-i18n="w1_title">Expertise Reconnue</h3><p data-i18n="w1_desc">Plus de 10 ans de spécialisation en dentisterie esthétique avec des formations continues.</p></div>
-          <div class="why-card"><div class="why-icon">🔬</div><h3 data-i18n="w2_title">Technologie de Pointe</h3><p data-i18n="w2_desc">Cabinet équipé des équipements les plus modernes pour des diagnostics précis.</p></div>
-          <div class="why-card"><div class="why-icon">💎</div><h3 data-i18n="w3_title">Résultats Naturels</h3><p data-i18n="w3_desc">Une approche artistique pour des sourires naturels qui reflètent votre personnalité.</p></div>
-          <div class="why-card"><div class="why-icon">🤝</div><h3 data-i18n="w4_title">Suivi Personnalisé</h3><p data-i18n="w4_desc">Chaque patient bénéficie d'un plan de traitement sur mesure et d'un accompagnement complet.</p></div>
+          <div class="why-card"><div class="why-icon">🎓</div><h3 data-i18n="w1_title">Formé à Monastir</h3><p data-i18n="w1_desc">Diplômé de la Faculté de Médecine Dentaire de Monastir, avec un mémoire consacré au flux numérique en implantologie.</p></div>
+          <div class="why-card"><div class="why-icon">💻</div><h3 data-i18n="w2_title">Le numérique avant le fauteuil</h3><p data-i18n="w2_desc">Chaque traitement complexe est planifié sur ordinateur avant la première séance. Moins d'imprévus, plus de précision.</p></div>
+          <div class="why-card"><div class="why-icon">🔧</div><h3 data-i18n="w3_title">Prothèses faites en Tunisie</h3><p data-i18n="w3_desc">Couronnes et bridges en zircone réalisés localement. Même qualité que l'étranger, délais plus courts, coût maîtrisé.</p></div>
+          <div class="why-card"><div class="why-icon">📸</div><h3 data-i18n="w4_title">Chaque cas documenté</h3><p data-i18n="w4_desc">Avant, pendant, après. Vous repartez avec les photos de votre propre transformation.</p></div>
         </div>
       </div>
     </section>
@@ -603,21 +611,21 @@ import '../styles/global.css';
           about_p2:"Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.",
           stat1:"Années d'expérience", stat2:'Sourires transformés', stat3:'Satisfaction patient',
           services_eyebrow:'Nos soins', services_title:"Des traitements d'excellence",
-          s1_title:'Design du Sourire', s1_desc:'Transformation complète de votre sourire grâce à une planification digitale personnalisée.',
-          s2_title:'Facettes en Porcelaine', s2_desc:'Des facettes ultra-fines en céramique pour corriger la forme, la couleur et l\'alignement de vos dents.',
-          s3_title:'Blanchiment Dentaire', s3_desc:'Techniques professionnelles de blanchiment pour un sourire éclatant avec des résultats durables.',
-          s4_title:'Aligneurs Invisibles', s4_desc:'Redressez vos dents discrètement avec des gouttières transparentes et amovibles.',
-          s5_title:'Implants Dentaires', s5_desc:"Remplacez vos dents manquantes par des implants en titane offrant la solidité d'une dent naturelle.",
-          s6_title:'Couronnes Zircone', s6_desc:'Restaurez et protégez vos dents abîmées avec des couronnes en zircone personnalisées.',
+          s1_title:'Design du Sourire', s1_desc:"Nous concevons votre nouveau sourire numériquement avant de toucher une seule dent. Vous voyez le résultat, vous validez, puis nous le réalisons.",
+          s2_title:'Facettes en Porcelaine', s2_desc:"Des facettes de 0,3 mm posées sur l'émail existant. Forme, teinte et alignement corrigés en deux séances, sans dévitalisation.",
+          s3_title:'Blanchiment Dentaire', s3_desc:"Blanchiment au fauteuil en une séance d'une heure. Plusieurs teintes gagnées, avec gouttières de maintien pour prolonger le résultat.",
+          s4_title:'Aligneurs Invisibles', s4_desc:"Gouttières transparentes changées toutes les deux semaines. Retirables pour manger et se brosser les dents. Personne ne les remarque.",
+          s5_title:'Implants Dentaires', s5_desc:"Une racine en titane qui remplace la dent manquante définitivement. Pose sous anesthésie locale, couronne posée après cicatrisation.",
+          s6_title:'Couronnes Zircone', s6_desc:"Céramique sans métal, translucide comme l'émail naturel. Réalisées en Tunisie, ajustées à la teinte de vos dents voisines.",
           gallery_eyebrow:'Résultats réels', gallery_title:'Avant & Après',
           gallery_sub:'Des transformations réelles réalisées au cabinet du Dr. Mathlouthi',
           g1:'Bridge 7 éléments · Zircone', g2:'4 Couronnes · Fermeture Diastème', g3:'Détartrage + Blanchiment',
           gallery_btn:'Voir tous les résultats →',
           why_eyebrow:'Pourquoi nous choisir', why_title:"L'excellence à votre service",
-          w1_title:'Expertise Reconnue', w1_desc:'Plus de 10 ans de spécialisation en dentisterie esthétique avec des formations continues.',
-          w2_title:'Technologie de Pointe', w2_desc:'Cabinet équipé des équipements les plus modernes pour des diagnostics précis.',
-          w3_title:'Résultats Naturels', w3_desc:'Une approche artistique pour des sourires naturels qui reflètent votre personnalité.',
-          w4_title:'Suivi Personnalisé', w4_desc:"Chaque patient bénéficie d'un plan de traitement sur mesure et d'un accompagnement complet.",
+          w1_title:'Formé à Monastir', w1_desc:"Diplômé de la Faculté de Médecine Dentaire de Monastir, avec un mémoire consacré au flux numérique en implantologie.",
+          w2_title:'Le numérique avant le fauteuil', w2_desc:"Chaque traitement complexe est planifié sur ordinateur avant la première séance. Moins d'imprévus, plus de précision.",
+          w3_title:'Prothèses faites en Tunisie', w3_desc:"Couronnes et bridges en zircone réalisés localement. Même qualité que l'étranger, délais plus courts, coût maîtrisé.",
+          w4_title:'Chaque cas documenté', w4_desc:"Avant, pendant, après. Vous repartez avec les photos de votre propre transformation.",
           test_eyebrow:'Témoignages', test_title:'Ce que disent nos patients',
           t1:'"Le Dr. Mathlouthi a complètement transformé mon sourire. Le résultat est naturel et magnifique. Je recommande vivement !"',
           t2:'"Professionnel, attentionné et très compétent. Mon blanchiment dentaire a dépassé toutes mes attentes. Merci Docteur !"',
@@ -671,21 +679,21 @@ import '../styles/global.css';
           about_p2:'His clinic is equipped with the latest technologies to offer you precise, comfortable care and results that exceed your expectations.',
           stat1:'Years of experience', stat2:'Smiles transformed', stat3:'Patient satisfaction',
           services_eyebrow:'Our treatments', services_title:'Excellence in every treatment',
-          s1_title:'Smile Design', s1_desc:'Complete smile transformation through personalized digital planning and advanced aesthetic techniques.',
-          s2_title:'Porcelain Veneers', s2_desc:'Ultra-thin ceramic veneers to correct the shape, color and alignment of your teeth with a natural result.',
-          s3_title:'Teeth Whitening', s3_desc:'Professional whitening techniques for a radiant smile, in-office or at home, with lasting results.',
-          s4_title:'Invisible Aligners', s4_desc:'Straighten your teeth discreetly with transparent, removable aligners without compromising your appearance.',
-          s5_title:'Dental Implants', s5_desc:'Replace missing teeth with titanium implants offering the strength and appearance of a natural tooth.',
-          s6_title:'Zirconia Crowns', s6_desc:'Restore and protect damaged teeth with fully customized zirconia crowns for a perfect result.',
+          s1_title:'Smile Design', s1_desc:"We design your new smile digitally before touching a single tooth. You see the result, you approve it, then we make it real.",
+          s2_title:'Porcelain Veneers', s2_desc:"0.3 mm veneers bonded onto your existing enamel. Shape, shade and alignment corrected in two sessions, with no root canal.",
+          s3_title:'Teeth Whitening', s3_desc:"In-office whitening in a single one-hour session. Several shades lighter, with custom trays to maintain the result.",
+          s4_title:'Invisible Aligners', s4_desc:"Clear aligners swapped every two weeks. Removable for eating and brushing. Nobody notices you are wearing them.",
+          s5_title:'Dental Implants', s5_desc:"A titanium root that replaces the missing tooth for good. Placed under local anaesthetic, crown fitted once healing is complete.",
+          s6_title:'Zirconia Crowns', s6_desc:"Metal-free ceramic, translucent like natural enamel. Made in Tunisia, matched to the shade of your neighbouring teeth.",
           gallery_eyebrow:'Real results', gallery_title:'Before & After',
           gallery_sub:'Real transformations performed at Dr. Mathlouthi\'s clinic',
           g1:'Bridge 7 elements · Zirconia', g2:'4 Crowns · Diastema Closure', g3:'Scaling + Whitening',
           gallery_btn:'See all results →',
           why_eyebrow:'Why choose us', why_title:'Excellence at your service',
-          w1_title:'Recognized Expertise', w1_desc:'Over 10 years of specialization in aesthetic dentistry with ongoing training in the latest techniques.',
-          w2_title:'Cutting-edge Technology', w2_desc:'Clinic equipped with the most modern equipment for precise diagnostics and comfortable care.',
-          w3_title:'Natural Results', w3_desc:'An artistic and medical approach for smiles that look natural and reflect your personality.',
-          w4_title:'Personalized Follow-up', w4_desc:'Each patient benefits from a tailored treatment plan and comprehensive support throughout their journey.',
+          w1_title:'Trained in Monastir', w1_desc:"Graduate of the Faculty of Dental Medicine of Monastir, with a thesis on digital workflow in implantology.",
+          w2_title:'Digital before the chair', w2_desc:"Every complex treatment is planned on computer before the first session. Fewer surprises, more precision.",
+          w3_title:'Prosthetics made in Tunisia', w3_desc:"Zirconia crowns and bridges made locally. The same quality as abroad, shorter turnaround, controlled cost.",
+          w4_title:'Every case documented', w4_desc:"Before, during, after. You leave with the photos of your own transformation.",
           test_eyebrow:'Testimonials', test_title:'What our patients say',
           t1:'"Dr. Mathlouthi completely transformed my smile. The result is natural and magnificent. I highly recommend!"',
           t2:'"Professional, attentive and very competent. My teeth whitening exceeded all my expectations. Thank you Doctor!"',
@@ -739,21 +747,21 @@ import '../styles/global.css';
           about_p2:'عيادته مجهزة بأحدث التقنيات لتقديم رعاية دقيقة ومريحة ونتائج تتجاوز توقعاتك.',
           stat1:'سنوات من الخبرة', stat2:'ابتسامة تم تحويلها', stat3:'رضا المرضى',
           services_eyebrow:'علاجاتنا', services_title:'تميز في كل علاج',
-          s1_title:'تصميم الابتسامة', s1_desc:'تحويل كامل لابتسامتك من خلال تخطيط رقمي شخصي وتقنيات جمالية متقدمة.',
-          s2_title:'قشور البورسلان', s2_desc:'قشور سيراميك رفيعة لتصحيح شكل ولون ومحاذاة أسنانك بنتيجة طبيعية.',
-          s3_title:'تبييض الأسنان', s3_desc:'تقنيات تبييض احترافية لابتسامة مشرقة في العيادة أو المنزل بنتائج دائمة.',
-          s4_title:'المحاذيات الشفافة', s4_desc:'قوّم أسنانك بشكل غير مرئي مع واقيات شفافة وقابلة للإزالة.',
-          s5_title:'زراعة الأسنان', s5_desc:'استبدل الأسنان المفقودة بغرسات تيتانيوم توفر متانة وشكل الأسنان الطبيعية.',
-          s6_title:'تيجان الزركونيا', s6_desc:'استعادة وحماية أسنانك التالفة بتيجان زركونيا مخصصة بالكامل.',
+          s1_title:'تصميم الابتسامة', s1_desc:'نصمّم ابتسامتك الجديدة رقمياً قبل أن نلمس سنّاً واحدة. ترى النتيجة، توافق عليها، ثم ننفّذها.',
+          s2_title:'قشور البورسلان', s2_desc:'قشور بسماكة 0,3 مم تُثبَّت على المينا الموجودة. تصحيح الشكل واللون والمحاذاة في جلستين، دون سحب العصب.',
+          s3_title:'تبييض الأسنان', s3_desc:'تبييض في العيادة خلال جلسة واحدة مدتها ساعة. عدة درجات أفتح، مع قوالب للمحافظة على النتيجة.',
+          s4_title:'المحاذيات الشفافة', s4_desc:'قوالب شفافة تُبدَّل كل أسبوعين. قابلة للإزالة عند الأكل وتنظيف الأسنان. لا أحد يلاحظها.',
+          s5_title:'زراعة الأسنان', s5_desc:'جذر من التيتانيوم يعوّض السن المفقودة نهائياً. تُزرع تحت تخدير موضعي، ويُركَّب التاج بعد الالتئام.',
+          s6_title:'تيجان الزركونيا', s6_desc:'سيراميك خالٍ من المعدن، شفاف مثل المينا الطبيعية. مصنوع في تونس، ومطابق للون أسنانك المجاورة.',
           gallery_eyebrow:'نتائج حقيقية', gallery_title:'قبل وبعد',
           gallery_sub:'تحولات حقيقية تمت في عيادة الدكتور مطلوثي',
           g1:'جسر 7 عناصر · زركونيا', g2:'4 تيجان · إغلاق الفجوة', g3:'تنظيف + تبييض',
           gallery_btn:'عرض جميع النتائج ←',
           why_eyebrow:'لماذا تختارنا', why_title:'التميز في خدمتك',
-          w1_title:'خبرة معترف بها', w1_desc:'أكثر من 10 سنوات من التخصص في طب الأسنان التجميلي مع تدريب مستمر.',
-          w2_title:'تكنولوجيا متطورة', w2_desc:'عيادة مجهزة بأحدث المعدات لتشخيص دقيق ورعاية مريحة.',
-          w3_title:'نتائج طبيعية', w3_desc:'نهج فني وطبي لابتسامات طبيعية تعكس شخصيتك.',
-          w4_title:'متابعة شخصية', w4_desc:'يستفيد كل مريض من خطة علاج مخصصة ودعم شامل طوال رحلته.',
+          w1_title:'تخرّج من المنستير', w1_desc:'خرّيج كلية طب الأسنان بالمنستير، بمذكرة تخرّج حول التدفق الرقمي في زراعة الأسنان.',
+          w2_title:'الرقمي قبل الكرسي', w2_desc:'كل علاج معقّد يُخطَّط له على الحاسوب قبل الجلسة الأولى. مفاجآت أقل، ودقة أكبر.',
+          w3_title:'تركيبات مصنوعة في تونس', w3_desc:'تيجان وجسور الزركونيا تُصنع محلياً. نفس جودة الخارج، بآجال أقصر وتكلفة مدروسة.',
+          w4_title:'توثيق كل حالة', w4_desc:'قبل، وأثناء، وبعد. تغادر ومعك صور تحوّلك الخاص.',
           test_eyebrow:'شهادات', test_title:'ماذا يقول مرضانا',
           t1:'"حوّل الدكتور مطلوثي ابتسامتي تماماً. النتيجة طبيعية ورائعة. أنصح به بشدة!"',
           t2:'"محترف ومهتم وكفء جداً. تبييض أسناني تجاوز كل توقعاتي. شكراً دكتور!"',
