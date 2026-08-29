@@ -16,9 +16,9 @@ import '../styles/global.css';
       /* LIGHT MODE */
       body.light-mode .about { background: #f5f0e8; }
       body.light-mode .services { background: #ede8de; }
-      body.light-mode .service-card { background: #f5f0e8; }
+      /* :not(.feature) so the shorthand doesn't wipe the feature tile's image. */
+      body.light-mode .service-card:not(.feature) { background: #f5f0e8; }
       body.light-mode .why { background: #ede8de; }
-      body.light-mode .why-card { background: #f5f0e8; }
       body.light-mode .testimonials { background: #f5f0e8; }
       body.light-mode .testimonial-card { background: #ede8de; }
       body.light-mode .stat { background: #ede8de; }
@@ -81,12 +81,25 @@ import '../styles/global.css';
       .services { background: #f8f7f4; padding: 100px 24px; }
       .services-inner { max-width: 1100px; margin: 0 auto; }
       .section-header { text-align: center; margin-bottom: 60px; }
-      .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-      .service-card { background: white; border-radius: 16px; padding: 36px 28px; border-top: 3px solid #C9A84C; transition: transform 0.3s, box-shadow 0.3s; }
+      /* Asymmetric feature grid: card 1 is a 2x2 photo tile, the rest flow normally. */
+      .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+      .service-card { position: relative; overflow: hidden; background: white; border-radius: 16px; padding: 36px 28px; border-top: 3px solid #C9A84C; transition: transform 0.3s, box-shadow 0.3s; }
       .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(11,31,58,0.08); }
-      .service-icon { width: 52px; height: 52px; background: #fff8ec; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6rem; }
-      .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: #0B1F3A; margin-bottom: 12px; }
-      .service-card p { font-size: 0.9rem; line-height: 1.7; color: #6b7280; }
+      /* Gold line sweeping left→right on hover. */
+      .service-card::after { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: #C9A84C; transition: width 0.4s ease; z-index: 2; }
+      .service-card:hover::after { width: 100%; }
+      /* Faint Playfair numeral behind the text. */
+      .service-num { position: absolute; top: 10px; right: 20px; font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: rgba(201,168,76,0.12); pointer-events: none; line-height: 1; z-index: 0; }
+      .service-icon { position: relative; z-index: 1; width: 52px; height: 52px; background: #fff8ec; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6rem; }
+      .service-card h3 { position: relative; z-index: 1; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: #0B1F3A; margin-bottom: 12px; }
+      .service-card p { position: relative; z-index: 1; font-size: 0.9rem; line-height: 1.7; color: #6b7280; }
+
+      /* Feature tile */
+      .service-card.feature { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; justify-content: flex-end; min-height: 320px; background-image: linear-gradient(to top, rgba(11,31,58,0.92), rgba(11,31,58,0.55)), url('/images/work5.jpg'); background-size: cover; background-position: center; border-top-color: #C9A84C; }
+      .service-card.feature h3 { font-size: 1.6rem; color: #ffffff; }
+      .service-card.feature p { color: rgba(255,255,255,0.75); font-size: 0.95rem; }
+      .service-card.feature .service-icon { background: rgba(255,255,255,0.12); }
+      .service-card.feature .service-num { color: rgba(201,168,76,0.28); }
 
       /* GALLERY */
       .gallery { background: #0B1F3A; padding: 100px 24px; }
@@ -100,11 +113,18 @@ import '../styles/global.css';
       /* WHY */
       .why { background: #f8f7f4; padding: 100px 24px; }
       .why-inner { max-width: 1100px; margin: 0 auto; }
-      .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 48px; }
-      .why-card { background: white; border-radius: 16px; padding: 32px 24px; text-align: center; }
-      .why-icon { font-size: 2rem; margin-bottom: 16px; }
-      .why-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: #0B1F3A; margin-bottom: 10px; }
-      .why-card p { font-size: 0.85rem; line-height: 1.7; color: #6b7280; }
+      /* Alternating photo/text rows. */
+      .why-rows { max-width: 1000px; margin: 48px auto 0; }
+      .why-row { display: flex; align-items: center; gap: 60px; margin-bottom: 80px; }
+      .why-row:last-child { margin-bottom: 0; }
+      .why-row.reverse { flex-direction: row-reverse; }
+      .why-row-photo { flex: 1; min-width: 0; }
+      .why-row-photo img { width: 100%; height: 340px; object-fit: cover; border-radius: 16px; display: block; }
+      .why-row-text { flex: 1; min-width: 0; }
+      .why-num { font-size: 0.75rem; letter-spacing: 0.2em; color: #C9A84C; margin-bottom: 12px; }
+      .why-row-text h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: #0B1F3A; margin-bottom: 16px; line-height: 1.3; }
+      .why-divider { width: 40px; height: 2px; background: #C9A84C; margin-bottom: 20px; }
+      .why-row-text p { font-size: 1rem; line-height: 1.8; color: #4a5568; }
 
       /* TESTIMONIALS */
       .testimonials { background: #ffffff; padding: 100px 24px; }
@@ -178,6 +198,16 @@ import '../styles/global.css';
       .wa-float:hover { transform: scale(1.08); box-shadow: 0 8px 26px rgba(0,0,0,0.3); }
       .wa-float svg { width: 30px; height: 30px; fill: #ffffff; }
 
+      @media (max-width: 900px) {
+        .services-grid { grid-template-columns: repeat(2, 1fr); }
+        .service-card.feature { grid-column: span 2; grid-row: span 1; }
+      }
+
+      @media (max-width: 600px) {
+        .services-grid { grid-template-columns: 1fr; }
+        .service-card.feature { grid-column: span 1; grid-row: span 1; }
+      }
+
       @media (max-width: 768px) {
         nav { padding: 16px 20px; flex-wrap: nowrap; justify-content: space-between; }
         .about-inner, .footer-top { flex-direction: column; }
@@ -208,6 +238,10 @@ import '../styles/global.css';
 
         /* Location: stack map and contact details */
         .map-grid { grid-template-columns: 1fr; gap: 32px; }
+
+        /* Why: stack photo above text, same order for every row. */
+        .why-row, .why-row.reverse { flex-direction: column; gap: 24px; margin-bottom: 56px; }
+        .why-row-photo img { height: 240px; }
       }
     </style>
   </head>
@@ -301,12 +335,12 @@ import '../styles/global.css';
           <h2 class="section-title" data-i18n="services_title">Des traitements d'excellence</h2>
         </div>
         <div class="services-grid">
-          <div class="service-card"><div class="service-icon">✨</div><h3 data-i18n="s1_title">Design du Sourire</h3><p data-i18n="s1_desc">Nous concevons votre nouveau sourire numériquement avant de toucher une seule dent. Vous voyez le résultat, vous validez, puis nous le réalisons.</p></div>
-          <div class="service-card"><div class="service-icon">🦷</div><h3 data-i18n="s2_title">Facettes en Porcelaine</h3><p data-i18n="s2_desc">Des facettes de 0,3 mm posées sur l'émail existant. Forme, teinte et alignement corrigés en deux séances, sans dévitalisation.</p></div>
-          <div class="service-card"><div class="service-icon">⚪</div><h3 data-i18n="s3_title">Blanchiment Dentaire</h3><p data-i18n="s3_desc">Blanchiment au fauteuil en une séance d'une heure. Plusieurs teintes gagnées, avec gouttières de maintien pour prolonger le résultat.</p></div>
-          <div class="service-card"><div class="service-icon">😁</div><h3 data-i18n="s4_title">Aligneurs Invisibles</h3><p data-i18n="s4_desc">Gouttières transparentes changées toutes les deux semaines. Retirables pour manger et se brosser les dents. Personne ne les remarque.</p></div>
-          <div class="service-card"><div class="service-icon">🔩</div><h3 data-i18n="s5_title">Implants Dentaires</h3><p data-i18n="s5_desc">Une racine en titane qui remplace la dent manquante définitivement. Pose sous anesthésie locale, couronne posée après cicatrisation.</p></div>
-          <div class="service-card"><div class="service-icon">👑</div><h3 data-i18n="s6_title">Couronnes Zircone</h3><p data-i18n="s6_desc">Céramique sans métal, translucide comme l'émail naturel. Réalisées en Tunisie, ajustées à la teinte de vos dents voisines.</p></div>
+          <div class="service-card feature"><span class="service-num">01</span><div class="service-icon">✨</div><h3 data-i18n="s1_title">Design du Sourire</h3><p data-i18n="s1_desc">Nous concevons votre nouveau sourire numériquement avant de toucher une seule dent. Vous voyez le résultat, vous validez, puis nous le réalisons.</p></div>
+          <div class="service-card"><span class="service-num">02</span><div class="service-icon">🦷</div><h3 data-i18n="s2_title">Facettes en Porcelaine</h3><p data-i18n="s2_desc">Des facettes de 0,3 mm posées sur l'émail existant. Forme, teinte et alignement corrigés en deux séances, sans dévitalisation.</p></div>
+          <div class="service-card"><span class="service-num">03</span><div class="service-icon">⚪</div><h3 data-i18n="s3_title">Blanchiment Dentaire</h3><p data-i18n="s3_desc">Blanchiment au fauteuil en une séance d'une heure. Plusieurs teintes gagnées, avec gouttières de maintien pour prolonger le résultat.</p></div>
+          <div class="service-card"><span class="service-num">04</span><div class="service-icon">😁</div><h3 data-i18n="s4_title">Aligneurs Invisibles</h3><p data-i18n="s4_desc">Gouttières transparentes changées toutes les deux semaines. Retirables pour manger et se brosser les dents. Personne ne les remarque.</p></div>
+          <div class="service-card"><span class="service-num">05</span><div class="service-icon">🔩</div><h3 data-i18n="s5_title">Implants Dentaires</h3><p data-i18n="s5_desc">Une racine en titane qui remplace la dent manquante définitivement. Pose sous anesthésie locale, couronne posée après cicatrisation.</p></div>
+          <div class="service-card"><span class="service-num">06</span><div class="service-icon">👑</div><h3 data-i18n="s6_title">Couronnes Zircone</h3><p data-i18n="s6_desc">Céramique sans métal, translucide comme l'émail naturel. Réalisées en Tunisie, ajustées à la teinte de vos dents voisines.</p></div>
         </div>
       </div>
     </section>
@@ -337,11 +371,43 @@ import '../styles/global.css';
           <p class="section-eyebrow" data-i18n="why_eyebrow">Pourquoi nous choisir</p>
           <h2 class="section-title" data-i18n="why_title">L'excellence à votre service</h2>
         </div>
-        <div class="why-grid">
-          <div class="why-card"><div class="why-icon">🎓</div><h3 data-i18n="w1_title">Formé à Monastir</h3><p data-i18n="w1_desc">Diplômé de la Faculté de Médecine Dentaire de Monastir, avec un mémoire consacré au flux numérique en implantologie.</p></div>
-          <div class="why-card"><div class="why-icon">💻</div><h3 data-i18n="w2_title">Le numérique avant le fauteuil</h3><p data-i18n="w2_desc">Chaque traitement complexe est planifié sur ordinateur avant la première séance. Moins d'imprévus, plus de précision.</p></div>
-          <div class="why-card"><div class="why-icon">🔧</div><h3 data-i18n="w3_title">Prothèses faites en Tunisie</h3><p data-i18n="w3_desc">Couronnes et bridges en zircone réalisés localement. Même qualité que l'étranger, délais plus courts, coût maîtrisé.</p></div>
-          <div class="why-card"><div class="why-icon">📸</div><h3 data-i18n="w4_title">Chaque cas documenté</h3><p data-i18n="w4_desc">Avant, pendant, après. Vous repartez avec les photos de votre propre transformation.</p></div>
+        <div class="why-rows">
+          <div class="why-row">
+            <div class="why-row-photo"><img src="/images/cabinet3.jpg" alt="Diplôme du Dr. Omar Mathlouthi" /></div>
+            <div class="why-row-text">
+              <div class="why-num">01</div>
+              <h3 data-i18n="w1_title">Formé à Monastir</h3>
+              <div class="why-divider"></div>
+              <p data-i18n="w1_desc">Diplômé de la Faculté de Médecine Dentaire de Monastir, avec un mémoire consacré au flux numérique en implantologie.</p>
+            </div>
+          </div>
+          <div class="why-row reverse">
+            <div class="why-row-photo"><img src="/images/doctor2.jpg" alt="Dr. Omar Mathlouthi en consultation" /></div>
+            <div class="why-row-text">
+              <div class="why-num">02</div>
+              <h3 data-i18n="w2_title">Le numérique avant le fauteuil</h3>
+              <div class="why-divider"></div>
+              <p data-i18n="w2_desc">Chaque traitement complexe est planifié sur ordinateur avant la première séance. Moins d'imprévus, plus de précision.</p>
+            </div>
+          </div>
+          <div class="why-row">
+            <div class="why-row-photo"><img src="/images/cabinet2.jpg" alt="Cabinet du Dr. Omar Mathlouthi" /></div>
+            <div class="why-row-text">
+              <div class="why-num">03</div>
+              <h3 data-i18n="w3_title">Prothèses faites en Tunisie</h3>
+              <div class="why-divider"></div>
+              <p data-i18n="w3_desc">Couronnes et bridges en zircone réalisés localement. Même qualité que l'étranger, délais plus courts, coût maîtrisé.</p>
+            </div>
+          </div>
+          <div class="why-row reverse">
+            <div class="why-row-photo"><img src="/images/doctor3.jpg" alt="Soin en cours au cabinet" /></div>
+            <div class="why-row-text">
+              <div class="why-num">04</div>
+              <h3 data-i18n="w4_title">Chaque cas documenté</h3>
+              <div class="why-divider"></div>
+              <p data-i18n="w4_desc">Avant, pendant, après. Vous repartez avec les photos de votre propre transformation.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
