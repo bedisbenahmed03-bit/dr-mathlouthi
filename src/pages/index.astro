@@ -16,8 +16,8 @@ import '../styles/global.css';
       /* LIGHT MODE */
       body.light-mode .about { background: #f5f0e8; }
       body.light-mode .services { background: #ede8de; }
-      /* :not(.feature) so the shorthand doesn't wipe the feature tile's image. */
-      body.light-mode .service-card:not(.feature) { background: #f5f0e8; }
+      /* No light-mode override on .service-card: every card is now a photo tile
+         and a background shorthand here would wipe the image. */
       body.light-mode .why { background: #ede8de; }
       body.light-mode .testimonials { background: #f5f0e8; }
       body.light-mode .testimonial-card { background: #ede8de; }
@@ -83,23 +83,32 @@ import '../styles/global.css';
       .section-header { text-align: center; margin-bottom: 60px; }
       /* Asymmetric feature grid: card 1 is a 2x2 photo tile, the rest flow normally. */
       .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
-      .service-card { position: relative; overflow: hidden; background: white; border-radius: 16px; padding: 36px 28px; border-top: 3px solid #C9A84C; transition: transform 0.3s, box-shadow 0.3s; }
+      /* Every card is a photo tile: shared navy overlay + per-card image via --card-img. */
+      .service-card { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; min-height: 280px; background-color: #0B1F3A; background-image: linear-gradient(to top, rgba(11,31,58,0.92), rgba(11,31,58,0.55)), var(--card-img, none); background-size: cover; background-position: center; border-radius: 16px; padding: 36px 28px; border-top: 3px solid #C9A84C; transition: transform 0.3s, box-shadow 0.3s; }
+      .services-grid .service-card:nth-child(1) { --card-img: url('/images/work5.jpg'); }
+      /* work1/2/3/4 are Instagram collages with baked-in "Before/After" pills and
+         captions that fight the card text, so the non-feature cards use the clean
+         clinical photos instead. */
+      .services-grid .service-card:nth-child(2) { --card-img: url('/images/doctor3.jpg'); }
+      .services-grid .service-card:nth-child(3) { --card-img: url('/images/doctor2.jpg'); }
+      .services-grid .service-card:nth-child(4) { --card-img: url('/images/cabinet1.jpg'); }
+      .services-grid .service-card:nth-child(5) { --card-img: url('/images/cabinet3.jpg'); }
+      .services-grid .service-card:nth-child(6) { --card-img: url('/images/cabinet2.jpg'); }
       .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(11,31,58,0.08); }
       /* Gold line sweeping left→right on hover. */
       .service-card::after { content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px; background: #C9A84C; transition: width 0.4s ease; z-index: 2; }
       .service-card:hover::after { width: 100%; }
       /* Faint Playfair numeral behind the text. */
-      .service-num { position: absolute; top: 10px; right: 20px; font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: rgba(201,168,76,0.12); pointer-events: none; line-height: 1; z-index: 0; }
-      .service-icon { position: relative; z-index: 1; width: 52px; height: 52px; background: #fff8ec; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6rem; }
-      .service-card h3 { position: relative; z-index: 1; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: #0B1F3A; margin-bottom: 12px; }
-      .service-card p { position: relative; z-index: 1; font-size: 0.9rem; line-height: 1.7; color: #6b7280; }
+      /* 0.28 so the numeral reads against the photo, as on the feature tile. */
+      .service-num { position: absolute; top: 10px; right: 20px; font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: rgba(201,168,76,0.28); pointer-events: none; line-height: 1; z-index: 0; }
+      .service-icon { position: relative; z-index: 1; width: 52px; height: 52px; background: rgba(255,255,255,0.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.6rem; }
+      .service-card h3 { position: relative; z-index: 1; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: #ffffff; margin-bottom: 12px; }
+      .service-card p { position: relative; z-index: 1; font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.75); }
 
-      /* Feature tile */
-      .service-card.feature { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; justify-content: flex-end; min-height: 320px; background-image: linear-gradient(to top, rgba(11,31,58,0.92), rgba(11,31,58,0.55)), url('/images/work5.jpg'); background-size: cover; background-position: center; border-top-color: #C9A84C; }
-      .service-card.feature h3 { font-size: 1.6rem; color: #ffffff; }
-      .service-card.feature p { color: rgba(255,255,255,0.75); font-size: 0.95rem; }
-      .service-card.feature .service-icon { background: rgba(255,255,255,0.12); }
-      .service-card.feature .service-num { color: rgba(201,168,76,0.28); }
+      /* Feature tile: same treatment, larger footprint and title. */
+      .service-card.feature { grid-column: span 2; grid-row: span 2; min-height: 320px; }
+      .service-card.feature h3 { font-size: 1.6rem; }
+      .service-card.feature p { font-size: 0.95rem; }
 
       /* GALLERY */
       .gallery { background: #0B1F3A; padding: 100px 24px; }
@@ -316,7 +325,7 @@ import '../styles/global.css';
           <p data-i18n="about_p1">Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.</p>
           <p data-i18n="about_p2">Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.</p>
           <div class="stats">
-            <div class="stat"><div class="stat-number">10+</div><div class="stat-label" data-i18n="stat1">Années d'expérience</div></div>
+            <div class="stat"><div class="stat-number">2024</div><div class="stat-label" data-i18n="stat1">Diplômé FMDM Monastir</div></div>
             <div class="stat"><div class="stat-number">500+</div><div class="stat-label" data-i18n="stat2">Sourires transformés</div></div>
             <div class="stat"><div class="stat-number">100%</div><div class="stat-label" data-i18n="stat3">Satisfaction patient</div></div>
           </div>
@@ -453,10 +462,10 @@ import '../styles/global.css';
             </div>
           </div>
           <div style="border-radius:20px; overflow:hidden; position:relative;">
-            <img src="/images/cabinet3.jpg" alt="Dr. Omar" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+            <img src="/images/cabinet3.jpg" alt="Poste de soin et unité de stérilisation" style="width:100%; height:100%; object-fit:cover; transition:transform 0.5s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
             <div style="position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(to top, rgba(6,15,30,0.9), transparent);">
-              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;" data-i18n="cab_l3a">Expertise</p>
-              <p style="color:white; font-family:'Playfair Display',serif; font-size:1rem;" data-i18n="cab_l3b">Dr. Omar Mathlouthi</p>
+              <p style="color:#C9A84C; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:4px;" data-i18n="cab_l3a">Équipement</p>
+              <p style="color:white; font-family:'Playfair Display',serif; font-size:1rem;" data-i18n="cab_l3b">Stérilisation & technologie</p>
             </div>
           </div>
         </div>
@@ -677,7 +686,7 @@ import '../styles/global.css';
           about_eyebrow:'À propos', about_title:'Une vision moderne de la dentisterie',
           about_p1:"Le Dr. Omar Mathlouthi est spécialiste en dentisterie esthétique à Sousse. Passionné par l'art du sourire, il combine des techniques de pointe avec une approche humaine et personnalisée.",
           about_p2:"Son cabinet est équipé des dernières technologies pour vous offrir des soins précis, confortables et des résultats qui dépassent vos attentes.",
-          stat1:"Années d'expérience", stat2:'Sourires transformés', stat3:'Satisfaction patient',
+          stat1:'Diplômé FMDM Monastir', stat2:'Sourires transformés', stat3:'Satisfaction patient',
           services_eyebrow:'Nos soins', services_title:"Des traitements d'excellence",
           s1_title:'Design du Sourire', s1_desc:"Nous concevons votre nouveau sourire numériquement avant de toucher une seule dent. Vous voyez le résultat, vous validez, puis nous le réalisons.",
           s2_title:'Facettes en Porcelaine', s2_desc:"Des facettes de 0,3 mm posées sur l'émail existant. Forme, teinte et alignement corrigés en deux séances, sans dévitalisation.",
@@ -701,7 +710,7 @@ import '../styles/global.css';
           cab_eyebrow:'Notre espace', cab_title:'Un cabinet pensé pour vous',
           cab_sub:'Un environnement moderne, chaleureux et équipé des dernières technologies pour votre confort.',
           cab_l1a:'Accueil', cab_l1b:"Salle d'attente", cab_l2a:'Traitement', cab_l2b:'Salle de soin',
-          cab_l3a:'Expertise', cab_l3b:'Dr. Omar Mathlouthi',
+          cab_l3a:'Équipement', cab_l3b:'Stérilisation & technologie',
           doc1a:'Portrait', doc1b:'Dr. Omar Mathlouthi', doc2a:'En action', doc2b:'Consultation', doc3a:'Précision', doc3b:'Soin en cours',
           book_eyebrow:'Rendez-vous', book_title:'Réservez Votre Consultation',
           f_name:'Nom Complet', ph_name:'Votre nom complet', f_phone:'Téléphone',
@@ -745,7 +754,7 @@ import '../styles/global.css';
           about_eyebrow:'About', about_title:'A modern vision of dentistry',
           about_p1:'Dr. Omar Mathlouthi is a specialist in aesthetic dentistry in Sousse. Passionate about the art of smiling, he combines cutting-edge techniques with a human and personalized approach.',
           about_p2:'His clinic is equipped with the latest technologies to offer you precise, comfortable care and results that exceed your expectations.',
-          stat1:'Years of experience', stat2:'Smiles transformed', stat3:'Patient satisfaction',
+          stat1:'FMDM Monastir graduate', stat2:'Smiles transformed', stat3:'Patient satisfaction',
           services_eyebrow:'Our treatments', services_title:'Excellence in every treatment',
           s1_title:'Smile Design', s1_desc:"We design your new smile digitally before touching a single tooth. You see the result, you approve it, then we make it real.",
           s2_title:'Porcelain Veneers', s2_desc:"0.3 mm veneers bonded onto your existing enamel. Shape, shade and alignment corrected in two sessions, with no root canal.",
@@ -769,7 +778,7 @@ import '../styles/global.css';
           cab_eyebrow:'Our space', cab_title:'A clinic designed for you',
           cab_sub:'A modern, warm environment equipped with the latest technologies for your comfort.',
           cab_l1a:'Reception', cab_l1b:'Waiting room', cab_l2a:'Treatment', cab_l2b:'Treatment room',
-          cab_l3a:'Expertise', cab_l3b:'Dr. Omar Mathlouthi',
+          cab_l3a:'Equipment', cab_l3b:'Sterilisation & technology',
           doc1a:'Portrait', doc1b:'Dr. Omar Mathlouthi', doc2a:'In action', doc2b:'Consultation', doc3a:'Precision', doc3b:'Treatment in progress',
           book_eyebrow:'Appointment', book_title:'Book Your Consultation',
           f_name:'Full Name', ph_name:'Your full name', f_phone:'Phone',
@@ -813,7 +822,7 @@ import '../styles/global.css';
           about_eyebrow:'من نحن', about_title:'رؤية حديثة لطب الأسنان',
           about_p1:'الدكتور عمر مطلوثي متخصص في طب الأسنان التجميلي في سوسة. شغوف بفن الابتسامة، يجمع بين أحدث التقنيات ونهج إنساني وشخصي.',
           about_p2:'عيادته مجهزة بأحدث التقنيات لتقديم رعاية دقيقة ومريحة ونتائج تتجاوز توقعاتك.',
-          stat1:'سنوات من الخبرة', stat2:'ابتسامة تم تحويلها', stat3:'رضا المرضى',
+          stat1:'خريج كلية طب الأسنان بالمنستير', stat2:'ابتسامة تم تحويلها', stat3:'رضا المرضى',
           services_eyebrow:'علاجاتنا', services_title:'تميز في كل علاج',
           s1_title:'تصميم الابتسامة', s1_desc:'نصمّم ابتسامتك الجديدة رقمياً قبل أن نلمس سنّاً واحدة. ترى النتيجة، توافق عليها، ثم ننفّذها.',
           s2_title:'قشور البورسلان', s2_desc:'قشور بسماكة 0,3 مم تُثبَّت على المينا الموجودة. تصحيح الشكل واللون والمحاذاة في جلستين، دون سحب العصب.',
@@ -837,7 +846,7 @@ import '../styles/global.css';
           cab_eyebrow:'فضاؤنا', cab_title:'عيادة مصممة لك',
           cab_sub:'بيئة حديثة ودافئة مجهزة بأحدث التقنيات لراحتك.',
           cab_l1a:'الاستقبال', cab_l1b:'غرفة الانتظار', cab_l2a:'العلاج', cab_l2b:'غرفة العلاج',
-          cab_l3a:'الخبرة', cab_l3b:'د. عمر مطلوثي',
+          cab_l3a:'التجهيزات', cab_l3b:'التعقيم والتكنولوجيا',
           doc1a:'صورة', doc1b:'د. عمر مطلوثي', doc2a:'في العمل', doc2b:'استشارة', doc3a:'دقة', doc3b:'علاج جارٍ',
           book_eyebrow:'موعد', book_title:'احجز استشارتك',
           f_name:'الاسم الكامل', ph_name:'اسمك الكامل', f_phone:'الهاتف',
