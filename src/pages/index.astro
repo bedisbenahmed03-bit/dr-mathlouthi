@@ -142,10 +142,12 @@ import '../styles/global.css';
       .footer-brand { flex: 2; min-width: 220px; }
       .footer-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.3rem; margin-bottom: 6px; }
       .footer-slogan { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: #C9A84C; margin-bottom: 16px; }
-      .footer-brand p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 300px; }
+      .footer-brand p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 300px; overflow-wrap: anywhere; }
       .footer-col { flex: 1; min-width: 160px; }
       .footer-col h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #C9A84C; margin-bottom: 20px; }
-      .footer-col a, .footer-col p { display: block; font-size: 0.9rem; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 10px; line-height: 1.6; transition: color 0.2s; }
+      /* overflow-wrap: anywhere so long unbreakable tokens (the Instagram
+         handle, the email) wrap inside the column instead of forcing it wider. */
+      .footer-col a, .footer-col p { display: block; font-size: 0.9rem; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 10px; line-height: 1.6; transition: color 0.2s; overflow-wrap: anywhere; }
       .footer-col a:hover { color: #C9A84C; }
       .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 32px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
       .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
@@ -373,7 +375,7 @@ import '../styles/global.css';
         </div>
         <div class="why-rows">
           <div class="why-row">
-            <div class="why-row-photo"><img src="/images/cabinet3.jpg" alt="Diplôme du Dr. Omar Mathlouthi" /></div>
+            <div class="why-row-photo"><img src="/images/doctor.jpg" alt="Dr. Omar Mathlouthi avec son mémoire de la Faculté de Médecine Dentaire de Monastir" /></div>
             <div class="why-row-text">
               <div class="why-num">01</div>
               <h3 data-i18n="w1_title">Formé à Monastir</h3>
@@ -391,7 +393,7 @@ import '../styles/global.css';
             </div>
           </div>
           <div class="why-row">
-            <div class="why-row-photo"><img src="/images/cabinet2.jpg" alt="Cabinet du Dr. Omar Mathlouthi" /></div>
+            <div class="why-row-photo"><img src="/images/cabinet3.jpg" alt="Salle de soin du cabinet à Sousse" /></div>
             <div class="why-row-text">
               <div class="why-num">03</div>
               <h3 data-i18n="w3_title">Prothèses faites en Tunisie</h3>
